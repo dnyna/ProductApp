@@ -1,0 +1,226 @@
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image } from 'react-native'
+import React from 'react'
+import Color from '../styles/Colors'
+import Sizes from '../../src/styles/Sizes'
+import Margins from '../styles/margin'
+import Boldness from '../styles/Boldness'
+import Radius from '../styles/Radius'
+import Borders from '../styles/Borders'
+import zIndex from '../styles/zIndex'
+import { useNavigation } from '@react-navigation/native'
+import Padding from '../styles/Padding'
+
+
+const App = () => {
+  const Navigation = useNavigation()
+  const GoogleImg = require('../Assets/Buttons.png')
+
+  const Lock = require('../Assets/lock.png')
+  const Eye = require('../Assets/eye.png')
+  const userImg = require('../Assets/User.png')
+
+  return (
+    <View style={styles.container}>
+
+      <View style={styles.welcomWrapper}>
+        <Text style={styles.welcome}>Create an           account
+
+        </Text>
+      </View>
+
+      <View>
+        <Image source={userImg} style={styles.UserIcon} />
+        <View style={styles.inputWrapper}>
+          <TextInput style={styles.input} placeholder='Username or Email' placeholderTextColor={'#A8A8A9'} />
+        </View>
+
+        <View style={styles.passWordWrapper}>
+          <Image source={Lock} style={styles.ImageIcon} />
+          <TextInput style={styles.PasswordInput} placeholder='Password' placeholderTextColor={'#676767'} />
+          <Image source={Eye} style={styles.ShowHideIcon} />
+        </View>
+
+        <View style={styles.ConfPass}>
+          <Image source={Lock} style={styles.ImageIcon} />
+          <TextInput style={styles.ConfirmPassword} placeholder='Confirm Password' placeholderTextColor={'#A8A8A9'} />
+          <Image source={Eye} style={styles.ShowHideIcon} />
+        </View>
+
+        <Text style={styles.registerTxt}>By clicking the Register button, you agree                            to the public offer</Text>
+
+      </View>
+
+
+      <View style={styles.Btns}>
+        <TouchableOpacity style={styles.CreateBtn} onPress={() => Navigation.navigate('GetStarted')}>
+          <Text style={styles.CreateAccText}>
+            Create An Account
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+
+      <View style={styles.ContinueWithContainer}>
+        <View style={styles.contnueWith}>
+          <Text style={styles.ContinueWithTxt}>- OR Continue with -</Text>
+
+          <View style={styles.footerButton}>
+            <Image source={GoogleImg} />
+          </View>
+          <View style={styles.alereadyAxccTxtWrapper}>
+
+            <Text style={styles.alereadyAxccTxt}> I have already an account  </Text>
+
+            <TouchableOpacity onPress={() => Navigation.navigate('Login')}>
+              <Text style={styles.LogIn}>Login</Text>
+            </TouchableOpacity>
+          </View>
+
+        </View>
+
+      </View>
+    </View>
+  )
+}
+
+export default App
+
+const styles = StyleSheet.create({
+
+  container: {
+    paddingLeft: Padding.K,
+    paddingRight: Padding.K,
+  },
+
+  welcome: {
+    fontSize: Sizes.XXl,
+    fontWeight: Boldness.L,
+  },
+
+  welcomWrapper: {
+    paddingTop: Padding.Xl,
+    paddingBottom: Padding.MM
+  },
+
+  UserIcon: {
+    position: 'absolute',
+    left: Margins.smallTen,
+    top: Margins.smallerSixteen,
+    zIndex: zIndex.A,
+  },
+
+  ImageIcon: {
+    position: 'absolute',
+    left: Margins.smaller,
+    top: Margins.smallMarginTwenty,
+    zIndex: zIndex.A,
+  },
+
+  ShowHideIcon: {
+    position: 'absolute',
+    right: Margins.smallerSeventeen,
+    top: Margins.smallMarginTwenty,
+    zIndex: zIndex.A,
+  },
+
+  inputWrapper: {
+    paddingBottom: Padding.MM
+  },
+  input: {
+    color: Color.blackClr,
+
+    borderRadius: Radius.XXXXL,
+    borderWidth: Borders.s,
+    backgroundColor: Color.inputColor,
+    borderColor: Color.borderInputColor,
+    paddingLeft: Padding.L,
+    paddingTop: Padding.m,
+    paddingBottom: Padding.m
+
+  },
+
+  passWordWrapper: {
+    paddingBottom: Padding.MM
+
+  },
+
+  PasswordInput: {
+    color: Color.blackClr,
+    borderRadius: Radius.XXXXL,
+    borderWidth: Borders.s,
+    backgroundColor: Color.inputColor,
+    borderColor: Color.borderInputColor,
+    paddingLeft: Padding.LL,
+    paddingTop: Padding.m,
+    paddingBottom: Padding.m,
+
+  },
+
+  ConfPass: {
+    paddingBottom: Padding.m
+  },
+
+  ConfirmPassword: {
+    color: Color.blackClr,
+    borderRadius: Radius.XXXXL,
+    borderWidth: Borders.s,
+    backgroundColor: Color.inputColor,
+    borderColor: Color.borderInputColor,
+    paddingLeft: Padding.LL,
+    paddingTop: Padding.m,
+    paddingBottom: Padding.m,
+  },
+
+  registerTxt: {
+    fontStyle: 'Montserrat',
+    fontSize: Sizes.s
+  },
+
+  Btns: {
+    paddingTop: Padding.L,
+    paddingBottom: Padding.l
+  },
+
+  CreateBtn: {
+
+    borderRadius: Radius.S,
+    backgroundColor: Color.buttonColor,
+  },
+  CreateAccText: {
+    paddingLeft: Padding.XxL,
+    paddingRight: Padding.XxL,
+    paddingTop: Padding.Middle,
+    paddingBottom: Padding.Middle,
+    color: 'white',
+    fontWeight: Boldness.l
+
+  },
+
+  contnueWith: {
+    alignItems: 'center',
+  },
+
+  ContinueWithTxt: {
+    fontSize: Sizes.M
+  },
+
+  footerButton: {
+    paddingTop: Padding.m
+  },
+
+  alereadyAxccTxtWrapper: {
+    justifyContent: 'space-evenly',
+    flexDirection: 'row',
+    paddingTop: Padding.K
+  },
+
+  alereadyAxccTxt: {
+    fontSize: Sizes.m
+  },
+
+  LogIn: {
+    color: Color.buttonColor,
+    textDecorationLine: 'underline'
+  }
+
+})
