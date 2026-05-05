@@ -1,6 +1,6 @@
 import { Image, StyleSheet, TextInput, View, TouchableOpacity, Text, FlatList, Button } from 'react-native'
-
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import { CartContextData } from '../Context/CartContext'
 import { useNavigation } from '@react-navigation/native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Header from '../Component/Header'
@@ -27,14 +27,34 @@ const Home = () => {
   const [loading, setLoading] = useState(true)
   const [refresh, setRefresh] = useState(false)
   const [sortOrder, setSortOrder] = useState(null)
-  const [liked, setLiked] = useState(false)
-  const [text, setText] = useState()
+  const [likedItem, setLikedItems] = useState(false)
   const [listening, setListening] = useState(false)
-  // const [started, setStarted] = useState('')
-  // const [ended, setEnded] = useState('')
-  // const [results, setResults] = useState('')
+  
   //  Fetch Data
 
+  // const { AddToWishList } = useContext(CartContextData)
+
+  // Listen for recognized speech results
+  useEffect(() => {
+    const resultListener = micEvents.addListener('onSpeechResult', (searchProduct) => {
+      console.log('Recognized text:', searchProduct);
+      setSearchProduct(searchProduct); // Update your state with the recognized text
+    });
+
+    // Listen for speech recognition errors
+
+    // const errorListener = micEvents.addListener('onSpeechError', (err) => {
+    //   console.error('Speech error:', err);
+    // });
+
+    // Clean up listeners on unmount  
+
+    return () => {
+      resultListener.remove();
+      // errorListener.remove();
+
+    };
+  }, []);
   const getData = async () => {
     try {
       setLoading(true)
@@ -61,7 +81,10 @@ const Home = () => {
     setSearchProduct(query)
 
     const filtered = products.filter(item =>
-      item.title?.toLowerCase().includes(query.toLowerCase())
+      item.category?.toLowerCase().includes(query.toLowerCase())||
+      item.title?.toLowerCase().includes(query.toLowerCase())||
+      item.discription?.toLowerCase().includes(query.toLowerCase()),
+
     )
 
     setDisplayData(filtered)
@@ -98,7 +121,14 @@ const Home = () => {
     setRefresh(false)
   }
 
+  //WishList LIked
 
+  const ToggleLike = (id) => {
+    setLikedItems((prev) => ({
+      ...prev,
+      [id]: !prev[id]
+    }))
+  }
 
   // Product Card
   const renderProducts = ({ item }) => (
@@ -127,9 +157,9 @@ const Home = () => {
             ⭐ {item.rating?.rate} ({item.rating?.count})
           </Text>
         </View>
-        <TouchableOpacity style={styles.heartContainer} onPress={() => setLiked(!liked)}>
+        <TouchableOpacity style={styles.heartContainer} onPress={() => ToggleLike(item.id)}>
           {
-            liked ? (<Ionicons name='heart' size={25} />
+            likedItem[item.id] ? (<Ionicons name='heart' color={'red'} size={25} />
             )
               :
               (<Ionicons name='heart-outline' color={'red'} size={25} />)
@@ -140,26 +170,7 @@ const Home = () => {
     </TouchableOpacity>
   )
 
-  // Listen for recognized speech results
-  useEffect(() => {
-    const resultListener = micEvents.addListener('onSpeechResult', (text) => {
-      console.log('Recognized text:', text);
-      setText(text); // Update your state with the recognized text
-    });
 
-    // Listen for speech recognition errors
-
-    const errorListener = micEvents.addListener('onSpeechError', (err) => {
-      console.error('Speech error:', err);
-    });
-
-    // Clean up listeners on unmount  
-
-    return () => {
-      resultListener.remove();
-      errorListener.remove();
-    };
-  }, []);
 
   return (
     <View style={styles.container}>
@@ -172,7 +183,7 @@ const Home = () => {
           style={styles.SearchInput}
           placeholder="Search any Products"
           placeholderTextColor={'#BBBBBB'}
-          value={`${searchProduct}${text}`}
+          value={searchProduct}
           onChangeText={handleSearch}
         />
 

@@ -14,7 +14,6 @@ import PaymentModal from '../Component/PaymentModal'
 const Cart = () => {
   const Navigation = useNavigation();
   const [showModal, setShowModal] = useState(false)// used for opening and closing the modal
-
   const { cartItems } = useContext(CartContextData);
   const BackArrow = require('../Assets/BackArrow.png');
   const favourite = require('../Assets/favourite.png')

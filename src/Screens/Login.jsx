@@ -44,7 +44,6 @@ const App = () => {
             <Image source={Eye} style={styles.ShowHideIcon} />
           </View>
 
-
           <TextInput style={styles.PasswordInput} placeholder='Password' placeholderTextColor={'#676767'} />
         </View>
         <TouchableOpacity style={styles.forgotPassword} onPress={() => Navigation.navigate('ForgotPassword')}>

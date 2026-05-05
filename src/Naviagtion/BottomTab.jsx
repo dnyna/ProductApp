@@ -21,7 +21,8 @@ const BottomTab = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#F83758'
+        tabBarActiveTintColor: '#F83758',
+        
       }} >
 
       {/* <Tab.Screen name='Drawer' component={Drawer}
@@ -33,8 +34,8 @@ const BottomTab = () => {
 
       <Tab.Screen name='Home' component={Drawer}
         options={{
-          tabBarIcon: ({ size, color }) => {
-            return (<Icon name="home-outline" size={size} color={color}></Icon>)
+          tabBarIcon: ({ size, color, focused }) => {
+            return (<Icon name="home-outline" size={size} color={color} focused></Icon>)
 
           }
 
