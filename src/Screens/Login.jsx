@@ -9,6 +9,7 @@ import Padding from '../styles/Padding'
 import Borders from '../styles/Borders'
 import Radius from '../styles/Radius'
 import Margins from '../styles/margin'
+import Voice from '../Screens/Voice'
 const App = () => {
   const Navigation = useNavigation()
 
@@ -26,6 +27,8 @@ const App = () => {
           </Text>
         </Text>
       </View>
+
+        <Voice/>
 
       <View>
 
@@ -60,6 +63,7 @@ const App = () => {
       </View>
 
       <ContinueWithFooter />
+    
     </View>
   )
 }
@@ -87,7 +91,7 @@ const styles = StyleSheet.create({
   UserIcon: {
     position: 'absolute',
     left: Margins.marginForty,
-    top: Margins.fiFive,
+    top: 52,
 
     zIndex: 1,
   },
@@ -105,7 +109,7 @@ const styles = StyleSheet.create({
 
   },
   inputWrapper: {
-    paddingTop: Padding.ll,
+    paddingTop:Padding.Ml,
     paddingRight: Padding.M,
     paddingLeft: Padding.MM,
 

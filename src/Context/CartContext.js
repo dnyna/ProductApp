@@ -1,16 +1,19 @@
-import React, { createContext, useState } from 'react'
-// import AsyncStorage from ' @react-native-async-storage/async-storage'
+import React, { createContext, useEffect, useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 export const CartContextData = createContext()
 
 const CartContext = ({ children }) => {
     const [cartItems, setCartItems] = useState([])
 
+    useEffect(()=>{
+
+    },[]) 
     // const setData = async () => {
     //     await AsyncStorage.setItem('productLists', 'Dnyana')
 
     // }
     // setData();
-    const AddToCart = (selectedProduct) => {
+    const AddToCart = async (selectedProduct) => {
         const item = cartItems.find((i) => i.id === selectedProduct.id)
 
         if (item) {
@@ -19,6 +22,7 @@ const CartContext = ({ children }) => {
                     ? { ...i, quantity: i.quantity + 1 }
                     : i
             )
+            await AsyncStorage.setItem(JSON.stringify(updatedCart))
             setCartItems(updatedCart)
         } else {
             setCartItems([...cartItems, { ...selectedProduct, quantity: 1 }])

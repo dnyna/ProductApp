@@ -8,7 +8,9 @@ import Boldness from '../styles/Boldness'
 import Gaps from '../styles/Gap'
 import Margins from '../styles/margin'
 const Categories = ({ onSelectCategory, onSort }) => {
-    const [showFilter, setShowFilter] = useState(false)
+    const [showFilter, setShowFilter] = useState(false)  //used this for show and hide the modal
+
+    //all images declared here
     const SecondImg = require('../Assets/ImageTwo.png')
     const ThirdImg = require('../Assets/WomensColthing.png')
     const FourthImg = require('../Assets/ImageFour.png')

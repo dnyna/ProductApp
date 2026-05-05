@@ -13,7 +13,7 @@ import Gaps from '../styles/Gap';
 import PaymentModal from '../Component/PaymentModal'
 const Cart = () => {
   const Navigation = useNavigation();
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false)// used for opening and closing the modal
 
   const { cartItems } = useContext(CartContextData);
   const BackArrow = require('../Assets/BackArrow.png');
@@ -22,15 +22,15 @@ const Cart = () => {
 
 
   // console.log('cartItmes', cartItems)
-
+  //used this to count price with quantity
   var TotalPrice = 0;
   cartItems.forEach(item => {
     TotalPrice += item.price * item.quantity
   });
 
-  const { RemoveFromCart } = useContext(CartContextData)
-  const { IncreaseQty } = useContext(CartContextData)
-  const { DecreaseQty } = useContext(CartContextData)
+  const { RemoveFromCart } = useContext(CartContextData)// to remove the cart item using the context
+  const { IncreaseQty } = useContext(CartContextData)// to increase the quantity of the product came from the context
+  const { DecreaseQty } = useContext(CartContextData)// to decrease the quantity of the product came from the context
 
 
   return (
@@ -38,10 +38,10 @@ const Cart = () => {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => Navigation.goBack()}>
-          <Image source={BackArrow} style={{ paddingTop: 2 }} />
+          <Image source={BackArrow} style={styles.backArrow} />
         </TouchableOpacity>
         <Text style={styles.ShppingBag}>Shopping Bag</Text>
-        <TouchableOpacity style={{ paddingTop: 4 }}>
+        <TouchableOpacity style={styles.fav}>
           <Image source={favourite} />
         </TouchableOpacity>
       </View>
@@ -70,7 +70,7 @@ const Cart = () => {
                   </TouchableOpacity>
                 </View>
 
-                <Text style={{ paddingTop: 8 }}>Price : ₹{item.price.toFixed(0) * item.quantity} </Text>
+                <Text style={styles.pricing}>Price : ₹{item.price.toFixed(0) * item.quantity} </Text>
                 <Text style={styles.deliveryDate}>Delivery by </Text>
               </View>
             </View>
@@ -97,7 +97,7 @@ const Cart = () => {
             <Text>Delivery Free</Text>
             <Text style={styles.freeTxt}>free</Text>
           </View>
-
+ 
         </View>
       </ScrollView>
 
@@ -115,7 +115,7 @@ const Cart = () => {
         </View>
 
       </View>
-      <PaymentModal showModal={showModal} setShowModal={setShowModal} />
+      <PaymentModal showModal={showModal} setShowModal={setShowModal} TotalPrice={TotalPrice} />
     </View>
   );
 };
@@ -135,7 +135,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: Padding.mm,
     paddingRight: Padding.K,
-    paddingBottom:Padding.L
+    paddingBottom: Padding.L
+  },
+  backArrow: {
+    paddingTop: Padding.B
   },
 
   ShppingBag: {
@@ -143,12 +146,16 @@ const styles = StyleSheet.create({
     fontWeight: Boldness.l,
   },
 
+  fav: {
+    paddingTop: Padding.C
+  },
+
   mapView: {
-    paddingLeft: 17,
+    paddingLeft: Padding.Mm,
     borderBottomWidth: Borders.m,
     borderColor: '#CACACA',
-    elevation:1,
-    backgroundColor:Color.backGroundColor
+    elevation: 1,
+    backgroundColor: Color.backGroundColor
   },
 
   product: {
@@ -163,22 +170,25 @@ const styles = StyleSheet.create({
   qtyIncDecWrapper: {
     flexWrap: 'wrap',
     flexDirection: 'row',
-    gap: 15,
+    gap: Gaps.C,
   },
 
   incDecQty: {
     flexDirection: 'row',
-    gap: 16,
-    paddingLeft: 5,
-    paddingRight: 5,
-    borderRadius: 3,
+    gap: Gaps.C,
+    paddingLeft: Padding.s,
+    paddingRight: Padding.s,
+    borderRadius: Padding.small,
     backgroundColor: Color.backGroundColor
   },
 
   txtFont: {
-    fontSize: 17
+    fontSize: Sizes.M
   },
 
+  pricing: {
+    paddingTop: Padding.mS
+  },
   deliveryDate: {
     paddingTop: Padding.small
   },
@@ -199,7 +209,7 @@ const styles = StyleSheet.create({
   catDelWrapper: {
     flexWrap: 'wrap',
     flexDirection: 'row',
-    gap: 50
+    gap: Gaps.L
   },
 
   category: {
@@ -265,7 +275,7 @@ const styles = StyleSheet.create({
     borderTopStartRadius: Radius.TFOUR,
     borderTopEndRadius: Radius.TFOUR,
     borderColor: '#F8F8F8',
-    paddingRight: 26
+    paddingRight: Padding.M
   },
 
   ViewDetailsWrapper: {

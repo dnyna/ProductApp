@@ -14,15 +14,15 @@ import Boldness from '../styles/Boldness';
 // import AsyncStorage from '@react-native-async-storage/async-storage'
 const ShopPage = ({ route }) => {
 
-  const Navigation = useNavigation()
-  const { selctedProduct } = route.params;
+  const Navigation = useNavigation()// useNavigation hook  used here to navigate from one scree to another
+  const { selctedProduct } = route.params; //  getting the product where we are clicking on by using params
 
   const { AddToCart } = useContext(CartContextData)
 
   const vip = require('../Assets/vip.png')
-  const nearestStore = require('../Assets/nearestStore.png')
-  const returnPloicy = require('../Assets/returnPloicy.png')
-  const cartImg = require('../Assets/cartImg.png')
+  const nearestStore = require('../Assets/nearestStore.png') //bottom images 
+  const returnPloicy = require('../Assets/returnPloicy.png') //bottom images 
+  const cartImg = require('../Assets/cartImg.png') //bottom images 
 
   // const Data = async()=>{
   //   await AsyncStorage.getItem('productLists')

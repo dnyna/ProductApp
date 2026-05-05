@@ -1,28 +1,29 @@
-import { StyleSheet, TouchableOpacity, View, Image, Modal } from 'react-native'
-import React, { useState } from 'react'
-import Sizes from '../styles/Sizes'
-import Margins from '../styles/margin'
+import { StyleSheet, TouchableOpacity, View, Image, } from 'react-native'
+
 import Padding from '../styles/Padding'
+
+import { useNavigation } from '@react-navigation/native'
 const Header = () => {
 
 
   const ProfilePicture = require('../Assets/profilePicture.png')
   const LeftIcon = require('../Assets/leftIcon.png')
   const StylishLogo = require('../Assets/StylishLogo.png')
+  const navigation = useNavigation()
   return (
 
     <View style={styles.container}>
       <View style={styles.headerContent}>
-        <TouchableOpacity style={{ paddingTop: 8, paddingBottom: 12 }}>
-          <Image source={ProfilePicture} style={styles.profileImg} />
+        <TouchableOpacity style={styles.ProfileContainer}>
+          <Image source={ProfilePicture}/>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{ paddingTop: 12, paddingBottom: 12 }}>
+        <TouchableOpacity style={styles.StylishLogoWrapper}>
           <Image source={StylishLogo} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={{ paddingTop: 12, paddingBottom: 12 }}>
-          <Image source={LeftIcon} style={styles.LeftIconImg} />
+        <TouchableOpacity style={styles.LeftIconWrapper} onPress={() => navigation.openDrawer()}>
+          <Image source={LeftIcon}/>
         </TouchableOpacity>
       </View>
     </View>
@@ -36,13 +37,26 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: Padding.X,
     paddingHorizontal: Padding.Middle,
-
-
   },
+
   headerContent: {
     flexDirection: 'row-reverse',
     justifyContent: 'space-between',
   },
 
+  ProfileContainer: {
+    paddingTop: Padding.mS,
+    paddingBottom: Padding.smallT
+  },
+
+  StylishLogoWrapper: {
+    paddingTop: Padding.smallT,
+    paddingBottom: Padding.smallT
+  },
+
+  LeftIconWrapper: {
+    paddingTop: Padding.smallT,
+    paddingBottom: Padding.smallT
+  }
 
 })

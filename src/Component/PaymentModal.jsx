@@ -4,7 +4,7 @@ import React from 'react'
 import Padding from '../styles/Padding'
 import Sizes from '../styles/Sizes'
 import Boldness from '../styles/Boldness'
-const PaymentModal = ({ showModal, setShowModal }) => {
+const PaymentModal = ({ showModal, setShowModal, TotalPrice }) => {
     const Star = require('../Assets/Star.png')
     const Vector = require('../Assets/Vector.png')
     const StarOne = require('../Assets/StarOne.png')
@@ -14,8 +14,9 @@ const PaymentModal = ({ showModal, setShowModal }) => {
     return (
         <View>
             <Modal transparent={true} visible={showModal} animationType='slide' backgroundColor={'red'}>
-                <View style={{ justifyContent:'center', alignItems:'center', flex:1 }}>
-                    <View style={{ backgroundColor: 'white', paddingTop: Padding.LL, borderRadius: Padding.MiddleT, justifyContent: 'center', alignItems: 'center', }}>
+
+                <View style={styles.container}>
+                    <View style={styles.secondContainer}>
 
                         <Image source={Star} />
                         <Image source={Vector} style={{ position: 'absolute', bottom: 88 }} />
@@ -27,8 +28,10 @@ const PaymentModal = ({ showModal, setShowModal }) => {
                         <Image source={StarThree} style={{ position: 'absolute', left: 92, bottom: 73 }} />
 
                         <TouchableOpacity onPress={() => setShowModal(false)}>
-                            <Text style={{ paddingBottom: Padding.TF, paddingTop: Padding.Middle, paddingLeft:66, fontSize: Sizes.m, fontWeight: Boldness.l, paddingRight:60 }}>Payment done successfully.</Text>
+
+                            <Text style={styles.paymentTxt}>Payment done successfully.</Text>
                         </TouchableOpacity>
+
 
                     </View>
 
@@ -40,6 +43,27 @@ const PaymentModal = ({ showModal, setShowModal }) => {
 
 export default PaymentModal
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1
+    },
+    paymentTxt: {
+        paddingBottom: Padding.TF,
+        paddingTop: Padding.Middle,
+        paddingLeft: Padding.ll,
+        fontSize: Sizes.m,
+        fontWeight: Boldness.l,
+        paddingRight: Padding.ST
+    },
+    secondContainer: {
+        backgroundColor: 'white',
+        paddingTop: Padding.LL,
+        borderRadius: Padding.MiddleT,
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
+})
 
 
