@@ -9,7 +9,7 @@ import Padding from '../styles/Padding'
 import Borders from '../styles/Borders'
 import Radius from '../styles/Radius'
 import Margins from '../styles/margin'
-import Voice from '../Screens/Voice'
+// import Voice from '../Screens/Voice'
 const App = () => {
   const Navigation = useNavigation()
 
@@ -28,7 +28,7 @@ const App = () => {
         </Text>
       </View>
 
-        <Voice/>
+        {/* <Voice/> */}
 
       <View>
 

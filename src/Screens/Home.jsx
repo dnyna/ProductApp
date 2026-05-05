@@ -13,7 +13,7 @@ import axios from 'axios'
 import Padding from '../styles/Padding'
 import LoadingPage from '../Component/LoadingPage'
 import NoDataFound from '../Component/NoDataFound'
-import Color from '../styles/Colors' 
+import Color from '../styles/Colors'
 import Gaps from '../styles/Gap'
 import { micEvents, SpeechToText } from 'react-native-speech-convertor';
 // import Voice from '@react-native-voice/voice'
@@ -28,8 +28,8 @@ const Home = () => {
   const [refresh, setRefresh] = useState(false)
   const [sortOrder, setSortOrder] = useState(null)
   const [liked, setLiked] = useState(false)
-const [text, setText]= useState()
-
+  const [text, setText] = useState()
+  const [listening, setListening] = useState(false)
   // const [started, setStarted] = useState('')
   // const [ended, setEnded] = useState('')
   // const [results, setResults] = useState('')
@@ -97,27 +97,7 @@ const [text, setText]= useState()
     await getData()
     setRefresh(false)
   }
-  useEffect(() => {
-    // Listen for recognized speech results
 
-    const resultListener = micEvents.addListener('onSpeechResult', () => {
-      console.log('Recognized text:', text);
-      setText(text); // Update your state with the recognized text
-    });
-
-    // Listen for speech recognition errors
-    
-    const errorListener = micEvents.addListener('onSpeechError', () => {
-      console.error('Speech error:', err);
-    });
-
-    // Clean up listeners on unmount
-
-    return () => {
-      resultListener.remove();
-      errorListener.remove();
-    };
-  }, []);
 
 
   // Product Card
@@ -160,6 +140,27 @@ const [text, setText]= useState()
     </TouchableOpacity>
   )
 
+  // Listen for recognized speech results
+  useEffect(() => {
+    const resultListener = micEvents.addListener('onSpeechResult', (text) => {
+      console.log('Recognized text:', text);
+      setText(text); // Update your state with the recognized text
+    });
+
+    // Listen for speech recognition errors
+
+    const errorListener = micEvents.addListener('onSpeechError', (err) => {
+      console.error('Speech error:', err);
+    });
+
+    // Clean up listeners on unmount  
+
+    return () => {
+      resultListener.remove();
+      errorListener.remove();
+    };
+  }, []);
+
   return (
     <View style={styles.container}>
 
@@ -171,17 +172,26 @@ const [text, setText]= useState()
           style={styles.SearchInput}
           placeholder="Search any Products"
           placeholderTextColor={'#BBBBBB'}
-          value={searchProduct}
+          value={`${searchProduct}${text}`}
           onChangeText={handleSearch}
         />
 
         <Ionicons name="search-outline" size={20} style={styles.searchIcon} />
 
-        <TouchableOpacity onPress={() => StartRecognizing()}>
+        <TouchableOpacity onPress={() => {
+          setListening(true)
+          SpeechToText.startListening();
+          setTimeout(() => {
+            SpeechToText.stopListening()
+            setListening(false)
+          }, 4000);
+        }}
+          style={listening ? styles.listening : null}
+        >
           <Image source={mike} style={styles.mike} />
         </TouchableOpacity>
-        s
-      </View>  
+
+      </View>
 
       {/*  Categories */}
 
@@ -241,7 +251,10 @@ const styles = StyleSheet.create({
     top: Margins.smallTen,
     color: Color.searchIcon
   },
-
+  listening: {
+    borderWidth: 1,
+    color: 'red'
+  },
   mike: {
     position: 'absolute',
     top: Margins.ThirtyONegt,
