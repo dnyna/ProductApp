@@ -4,10 +4,7 @@ export const CartContextData = createContext()
 
 const CartContext = ({ children }) => {
     const [cartItems, setCartItems] = useState([])
-    const [wishItems, setWishItems] = useState([])
-    useEffect(() => {
-
-    }, [])
+   
     // const setData = async () => {
     //     await AsyncStorage.setItem('productLists', 'Dnyana')
 
@@ -30,19 +27,18 @@ const CartContext = ({ children }) => {
     }
 
 
-    const AddToWishList = async (LikedProducts) => {
-        const LikedItem = wishItems.find((liked) => liked.id === LikedProducts.id)
+    //getItem
 
-        if (LikedItem) {
-            const updatedWishItem = wishItems.map((liked) =>
-                liked.id === LikedProducts.id
-            )
+    useEffect(() => {
+        LoadCartItem()
+     }, [])
+    const LoadCartItem = async () => {
+        let cartItems = await AsyncStorage.getItem('carts');
+        cartItems = cartItems ? JSON.parse(cartItems) : [];
+        setCartItems(cartItems);
 
-            setWishItems(updatedWishItem)
-        } else {
-            setWishItems([...wishItems, { ...LikedProducts }])
-        }
     }
+
 
     const RemoveFromCart = (selectedProductID) => {
         const filtered = cartItems.filter(item => item.id !== selectedProductID)
@@ -75,7 +71,7 @@ const CartContext = ({ children }) => {
                 RemoveFromCart,
                 IncreaseQty,
                 DecreaseQty,
-                AddToWishList
+                
             }}>
             {children}
         </CartContextData.Provider>

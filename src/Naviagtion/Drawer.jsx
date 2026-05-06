@@ -3,7 +3,7 @@ import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import Home from '../Screens/Home'
 import Cart from '../Screens/Cart'
-import Search from '../Screens/Search'
+import WishList from '../Screens/WishList'
 import HelpCenter from '../Screens/HelpCenter'
 import IonIcons from 'react-native-vector-icons/Ionicons'
 const Drawers = createDrawerNavigator();
@@ -23,7 +23,7 @@ const Drawer = () => {
                         headerShown: false
                     }
                 } />
-            <Drawers.Screen name='Search' component={Search}
+            <Drawers.Screen name='WishList' component={WishList}
                 options={
                     {
                         headerShown: false

@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native'
 
 import Home from '../Screens/Home'
 import Cart from '../Screens/Cart'
-import Search from '../Screens/Search'
+import WishList from '../Screens/WishList'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { CartContextData } from '../Context/CartContext'
 import Padding from '../styles/Padding'
@@ -63,7 +63,7 @@ const BottomTab = () => {
 
           // tabBarBadge
         }} />
-      <Tab.Screen name='Profile' component={Search}
+      <Tab.Screen name='WishList' component={WishList}
         options={{
           tabBarIcon: ({ size, color }) => {
             return (<Icon name="person-outline" size={size} color={color}></Icon>)

@@ -6,7 +6,6 @@ import CreateAccount from '../Screens/CreateAccount'
 import ForgotPassword from '../Screens/ForgotPassword'
 import GetStarted from '../Screens/GetStarted'
 import ShopPage from '../Screens/ShopPage'
-import Home from '../Screens/Home'
 import Cart from '../Screens/Cart'
 import BottomTab from './BottomTab'
 const Stack = createStackNavigator()

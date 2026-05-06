@@ -4,11 +4,11 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
 import {CartContextData}from '../Context/CartContext'
 import { useContext } from 'react'
-const Search = () => {
+const WishList = () => {
   const{wishItems} = useContext(CartContextData);
   return (
     <View>
-       <ScrollView>
+       {/* <ScrollView>
         {wishItems.map((item, idx) => (
           <View key={idx} style={styles.mapView}>
             <View key={item.id} style={styles.product}>
@@ -61,12 +61,12 @@ const Search = () => {
           </View>
  
         </View>
-      </ScrollView>
+      </ScrollView> */}
     </View>
   )
 }
 
-export default Search
+export default WishList
 
 const styles = StyleSheet.create({
 

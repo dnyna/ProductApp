@@ -11,6 +11,7 @@ import Borders from '../styles/Borders';
 import Radius from '../styles/Radius';
 import Gaps from '../styles/Gap';
 import PaymentModal from '../Component/PaymentModal'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 const Cart = () => {
   const Navigation = useNavigation();
   const [showModal, setShowModal] = useState(false)// used for opening and closing the modal

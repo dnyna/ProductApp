@@ -19,16 +19,16 @@ import { micEvents, SpeechToText } from 'react-native-speech-convertor';
 // import Voice from '@react-native-voice/voice'
 const Home = () => {
 
-  const Navigation = useNavigation()
+  const Navigation = useNavigation() //used for screen Navigation one of the hook
   const mike = require('../Assets/mike.png')
-  const [products, setProducts] = useState([])
-  const [displayData, setDisplayData] = useState([])
-  const [searchProduct, setSearchProduct] = useState('')
-  const [loading, setLoading] = useState(true)
-  const [refresh, setRefresh] = useState(false)
-  const [sortOrder, setSortOrder] = useState(null)
-  const [likedItem, setLikedItems] = useState(false)
-  const [listening, setListening] = useState(false)
+  const [products, setProducts] = useState([])  //stored api data
+  const [displayData, setDisplayData] = useState([]) //stored filtered products
+  const [searchProduct, setSearchProduct] = useState('') // stored searched inputs
+  const [loading, setLoading] = useState(true) //loading state for api data
+  const [refresh, setRefresh] = useState(false)// to refresh the state 
+  const [sortOrder, setSortOrder] = useState(null) //for storing sort order
+  const [likedItem, setLikedItems] = useState(false) // stores liked products
+  const [listening, setListening] = useState(false) // tracks microphones
   
   //  Fetch Data
 
@@ -55,6 +55,9 @@ const Home = () => {
 
     };
   }, []);
+
+
+  //fetching product data from api
   const getData = async () => {
     try {
       setLoading(true)
@@ -70,21 +73,20 @@ const Home = () => {
     }
   }
 
+  //runs once when screen loads, avoids rerendering
   useEffect(() => {
     getData()
   }, [])
 
 
 
-  //  Search 
+  //  Search logic
   const handleSearch = (query) => {
     setSearchProduct(query)
 
     const filtered = products.filter(item =>
-      item.category?.toLowerCase().includes(query.toLowerCase())||
-      item.title?.toLowerCase().includes(query.toLowerCase())||
-      item.discription?.toLowerCase().includes(query.toLowerCase()),
-
+      item.category?.toLowerCase().includes(query.toLowerCase())
+    
     )
 
     setDisplayData(filtered)
@@ -114,14 +116,14 @@ const Home = () => {
     setDisplayData(sorted)
   }
 
-  // Refresh
+  // Refresh productList
   const handleRefresh = async () => {
     setRefresh(true)
     await getData()
     setRefresh(false)
   }
 
-  //WishList LIked
+  //WishList LIked/unliked products
 
   const ToggleLike = (id) => {
     setLikedItems((prev) => ({
@@ -130,7 +132,7 @@ const Home = () => {
     }))
   }
 
-  // Product Card
+  // renders Product
   const renderProducts = ({ item }) => (
     <TouchableOpacity
       style={styles.cart}
