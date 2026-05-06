@@ -24,10 +24,7 @@ const ShopPage = ({ route }) => {
   const returnPloicy = require('../Assets/returnPloicy.png') //bottom images 
   const cartImg = require('../Assets/cartImg.png') //bottom images 
 
-  // const Data = async()=>{
-  //   await AsyncStorage.getItem('productLists')
-  // }
-  // console.log(Data)
+
   return (
     <View style={styles.WishListContainer}>
       <View style={styles.header}>

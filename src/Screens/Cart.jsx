@@ -11,26 +11,26 @@ import Borders from '../styles/Borders';
 import Radius from '../styles/Radius';
 import Gaps from '../styles/Gap';
 import PaymentModal from '../Component/PaymentModal'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+// import AsyncStorage from '@react-native-async-storage/async-storage'
 const Cart = () => {
-  const Navigation = useNavigation();
+  const Navigation = useNavigation()
   const [showModal, setShowModal] = useState(false)// used for opening and closing the modal
-  const { cartItems } = useContext(CartContextData);
   const BackArrow = require('../Assets/BackArrow.png');
   const favourite = require('../Assets/favourite.png')
   const ProceedPaymet = require('../Assets/ProdeedPayment.png')
 
 
-  // console.log('cartItmes', cartItems)
   //used this to count price with quantity
   var TotalPrice = 0;
   cartItems.forEach(item => {
     TotalPrice += item.price * item.quantity
   });
+  const {cartItems} = useContext(CartContextData)
+    console.log('cartItmes', cartItems)
 
-  const { RemoveFromCart } = useContext(CartContextData)// to remove the cart item using the context
-  const { IncreaseQty } = useContext(CartContextData)// to increase the quantity of the product came from the context
-  const { DecreaseQty } = useContext(CartContextData)// to decrease the quantity of the product came from the context
+  const { RemoveFromCart } = useContext(CartContextData) // to remove the cart item using the context
+  const { IncreaseQty } = useContext(CartContextData) // to increase the quantity of the product came from the context
+  const { DecreaseQty } = useContext(CartContextData) // to decrease the quantity of the product came from the context
 
 
   return (

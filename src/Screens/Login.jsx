@@ -24,11 +24,14 @@ const App = () => {
 
   const getUserData = async ()=>{
     const data = await AsyncStorage.getItem('userData')
-    console.log(data, 'data')
-    // if(data){
-    //   const parsedData = JSON.parse(data)
-    //   console.log('parsedData', parsedData)
-    // }
+    console.log('data')
+    if(data){
+      const userData = JSON.parse(userData)
+      console.log(userData)
+    }else{
+      console.log('no account');
+      
+    }
   }
   return (
     <View style={styles.container}>
@@ -78,11 +81,11 @@ const App = () => {
 
       </View>
       <View style={styles.loginWrapper}>
-        <TouchableOpacity style={styles.loginBtn} onPress={getUserData()}>
+        <TouchableOpacity style={styles.loginBtn} onPress={() => Navigation.navigate('GetStarted')}>
           <Text style={styles.loginText}>
             Login
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> 
       </View>
 
       <ContinueWithFooter />
