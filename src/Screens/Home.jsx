@@ -217,11 +217,11 @@ const Home = () => {
 
       {loading ? (
         <LoadingPage />
-      ) : displayData.length === 0 ? (
+      ) : products.length === 0 ? (
         <NoDataFound />
       ) : (
         <FlatList
-          data={displayData}
+          data={products}
           renderItem={renderProducts}
           keyExtractor={(item) => item.id.toString()}
           numColumns={2}

@@ -13,12 +13,23 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 const App = () => {
   const Navigation = useNavigation()
 
- 
+
 
   const Lock = require('../Assets/lock.png')
   const Eye = require('../Assets/eye.png')
   const userImg = require('../Assets/User.png')
 
+  const [user, setUser] = useState('')
+  const [password, setPassword] = useState('')
+
+  const getUserData = async ()=>{
+    const data = await AsyncStorage.getItem('userData')
+    console.log(data, 'data')
+    // if(data){
+    //   const parsedData = JSON.parse(data)
+    //   console.log('parsedData', parsedData)
+    // }
+  }
   return (
     <View style={styles.container}>
 
@@ -40,8 +51,8 @@ const App = () => {
             style={styles.input}
             placeholder='Username or Email'
             placeholderTextColor={"#676767"}
-            // value={user}
-            // onChangeText={setUser}
+            value={user}
+            onChangeText={setUser}
           />
         </View>
 
@@ -55,8 +66,8 @@ const App = () => {
             style={styles.PasswordInput}
             placeholder='Password'
             placeholderTextColor={'#676767'}
-            // value={Password}
-            // onChangeText={setPassword}
+            value={password}
+            onChangeText={setPassword}
           />
         </View>
         <TouchableOpacity style={styles.forgotPassword} onPress={() => Navigation.navigate('ForgotPassword')}>
@@ -67,7 +78,7 @@ const App = () => {
 
       </View>
       <View style={styles.loginWrapper}>
-        <TouchableOpacity style={styles.loginBtn} onPress={() => Navigation.navigate('GetStarted')}>
+        <TouchableOpacity style={styles.loginBtn} onPress={getUserData()}>
           <Text style={styles.loginText}>
             Login
           </Text>
