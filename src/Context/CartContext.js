@@ -4,47 +4,63 @@ export const CartContextData = createContext()
 
 const CartContext = ({ children }) => {
     const [cartItems, setCartItems] = useState([])
-   
-    // const setData = async () => {
-    //     await AsyncStorage.setItem('productLists', 'Dnyana')
-
-    // }
-    // setData();
-    const AddToCart = async (selectedProduct) => {
-        const item = cartItems.find((i) => i.id === selectedProduct.id)
-
-        if (item) {
-            const updatedCart = cartItems.map((i) =>
-                i.id === selectedProduct.id
-                    ? { ...i, quantity: i.quantity + 1 }
-                    : i
-            )
-            await AsyncStorage.setItem(JSON.stringify(updatedCart))
-            setCartItems(updatedCart)
-        } else {
-            setCartItems([...cartItems, { ...selectedProduct, quantity: 1 }])
-        }
-    }
-
 
     //getItem
 
     useEffect(() => {
         LoadCartItem()
-     }, [])
+    }, [])
+
     const LoadCartItem = async () => {
-        let cartItems = await AsyncStorage.getItem('carts');
-        cartItems = cartItems ? JSON.parse(cartItems) : [];
-        setCartItems(cartItems);
+        try {
+            let items = await AsyncStorage.getItem('carts');
+            items = items ? JSON.parse(SaveItems()) : [];
+            setCartItems(items);
+        } catch (error) {
+            console.log('error')
+        }
 
     }
 
+    //setItem
+
+    const saveData = async (items) => {
+        try {
+            await AsyncStorage.setItem('carts', JSON.stringify(items));
+        } catch (error) {
+            console.log('error')
+        }
+
+    }
+
+
+
+    const AddToCart =async (selectedProduct) => {
+        const item = cartItems.find((i) => i.id === selectedProduct.id)
+
+        if (item) {
+             updatedCart = cartItems.map(i =>
+                i.id === selectedProduct.id
+                    ? { ...i, quantity: i.quantity + 1 }
+                    : i
+            )
+        } else {
+            updatedCart = [...cartItems, { ...selectedProduct, quantity: 1 }]
+        }
+        setCartItems(updatedCart)
+        await saveData(updatedCart)
+    }
+
+
+
+    //remove from cart
 
     const RemoveFromCart = (selectedProductID) => {
         const filtered = cartItems.filter(item => item.id !== selectedProductID)
         setCartItems(filtered)
     }
 
+    //increase quantity
     const IncreaseQty = (id) => {
         setCartItems(prevItems =>
             prevItems.map(item =>
@@ -54,6 +70,7 @@ const CartContext = ({ children }) => {
         );
     }
 
+    //decrease quantity
     const DecreaseQty = (id) => {
         setCartItems(prevItems =>
             prevItems.map(item =>
@@ -71,7 +88,8 @@ const CartContext = ({ children }) => {
                 RemoveFromCart,
                 IncreaseQty,
                 DecreaseQty,
-                
+                LoadCartItem
+
             }}>
             {children}
         </CartContextData.Provider>
