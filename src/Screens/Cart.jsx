@@ -21,13 +21,13 @@ const Cart = () => {
 
 
   //used this to count price with quantity
+
+  const { cartItems } = useContext(CartContextData)
+  console.log('cartItmes', cartItems)
   var TotalPrice = 0;
   cartItems.forEach(item => {
     TotalPrice += item.price * item.quantity
   });
-  const {cartItems} = useContext(CartContextData)
-    console.log('cartItmes', cartItems)
-
   const { RemoveFromCart } = useContext(CartContextData) // to remove the cart item using the context
   const { IncreaseQty } = useContext(CartContextData) // to increase the quantity of the product came from the context
   const { DecreaseQty } = useContext(CartContextData) // to decrease the quantity of the product came from the context
@@ -97,7 +97,7 @@ const Cart = () => {
             <Text>Delivery Free</Text>
             <Text style={styles.freeTxt}>free</Text>
           </View>
- 
+
         </View>
       </ScrollView>
 

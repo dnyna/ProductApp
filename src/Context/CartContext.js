@@ -50,8 +50,8 @@ const CartContext = ({ children }) => {
                  { ...selectedProduct, quantity: 1 }
                 ] 
         }
-        setCartItems(AddToCart)
-        await saveData(AddToCart)
+        setCartItems(updatedCart)
+        await saveData(updatedCart)
     }
 
 
