@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image, Alert } from 'react-native'
 import React from 'react'
 import Color from '../styles/Colors'
 import Sizes from '../../src/styles/Sizes'
@@ -9,6 +9,7 @@ import Borders from '../styles/Borders'
 import zIndex from '../styles/zIndex'
 import { useNavigation } from '@react-navigation/native'
 import Padding from '../styles/Padding'
+import { useState } from 'react'
 
 
 const App = () => {
@@ -19,6 +20,14 @@ const App = () => {
   const Eye = require('../Assets/eye.png')
   const userImg = require('../Assets/User.png')
 
+   const [user, setUser] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleSignUp =()=>{
+    if(!user || !password){
+      Alert.alert('enter username and password')
+    }
+  }
   return (
     <View style={styles.container}>
 
@@ -31,12 +40,12 @@ const App = () => {
       <View>
         <Image source={userImg} style={styles.UserIcon} />
         <View style={styles.inputWrapper}>
-          <TextInput style={styles.input} placeholder='Username or Email' placeholderTextColor={'#A8A8A9'} />
+          <TextInput style={styles.input} placeholder='Username or Email' placeholderTextColor={'#A8A8A9'} value={user} onChangeText={setUser()}/>
         </View>
 
         <View style={styles.passWordWrapper}>
           <Image source={Lock} style={styles.ImageIcon} />
-          <TextInput style={styles.PasswordInput} placeholder='Password' placeholderTextColor={'#676767'} />
+          <TextInput style={styles.PasswordInput} placeholder='Password' placeholderTextColor={'#676767'} value={password} onChangeText={setPassword()} />
           <Image source={Eye} style={styles.ShowHideIcon} />
         </View>
 
@@ -52,7 +61,7 @@ const App = () => {
 
 
       <View style={styles.Btns}>
-        <TouchableOpacity style={styles.CreateBtn} onPress={() => Navigation.navigate('GetStarted')}>
+        <TouchableOpacity style={styles.CreateBtn} onPress={() =>handleSignUp()}>
           <Text style={styles.CreateAccText}>
             Create An Account
           </Text>

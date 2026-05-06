@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Color from '../styles/Colors'
 import Sizes from '../../src/styles/Sizes'
 import { useNavigation } from '@react-navigation/native'
@@ -9,13 +9,14 @@ import Padding from '../styles/Padding'
 import Borders from '../styles/Borders'
 import Radius from '../styles/Radius'
 import Margins from '../styles/margin'
-// import Voice from '../Screens/Voice'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 const App = () => {
   const Navigation = useNavigation()
 
+ 
+
   const Lock = require('../Assets/lock.png')
   const Eye = require('../Assets/eye.png')
-
   const userImg = require('../Assets/User.png')
 
   return (
@@ -28,14 +29,20 @@ const App = () => {
         </Text>
       </View>
 
-        {/* <Voice/> */}
+      {/* <Voice/> */}
 
       <View>
 
         <View style={styles.inputWrapper}>
           <Image source={userImg} style={styles.UserIcon} />
 
-          <TextInput style={styles.input} placeholder='Username or Email' placeholderTextColor={"#676767"} />
+          <TextInput
+            style={styles.input}
+            placeholder='Username or Email'
+            placeholderTextColor={"#676767"}
+            // value={user}
+            // onChangeText={setUser}
+          />
         </View>
 
         <View style={styles.PasswordWrapper}>
@@ -44,7 +51,13 @@ const App = () => {
             <Image source={Eye} style={styles.ShowHideIcon} />
           </View>
 
-          <TextInput style={styles.PasswordInput} placeholder='Password' placeholderTextColor={'#676767'} />
+          <TextInput
+            style={styles.PasswordInput}
+            placeholder='Password'
+            placeholderTextColor={'#676767'}
+            // value={Password}
+            // onChangeText={setPassword}
+          />
         </View>
         <TouchableOpacity style={styles.forgotPassword} onPress={() => Navigation.navigate('ForgotPassword')}>
           <Text style={styles.forgotTxt}>
@@ -62,7 +75,7 @@ const App = () => {
       </View>
 
       <ContinueWithFooter />
-    
+
     </View>
   )
 }
@@ -108,7 +121,7 @@ const styles = StyleSheet.create({
 
   },
   inputWrapper: {
-    paddingTop:Padding.Ml,
+    paddingTop: Padding.Ml,
     paddingRight: Padding.M,
     paddingLeft: Padding.MM,
 

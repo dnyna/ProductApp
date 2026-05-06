@@ -14,7 +14,7 @@ const CartContext = ({ children }) => {
     const LoadCartItem = async () => {
         try {
             let items = await AsyncStorage.getItem('carts');
-            items = items ? JSON.parse(SaveItems()) : [];
+            items = items ? JSON.parse(items) : [];
             setCartItems(items);
         } catch (error) {
             console.log('error')
@@ -35,20 +35,23 @@ const CartContext = ({ children }) => {
 
 
 
-    const AddToCart =async (selectedProduct) => {
-        const item = cartItems.find((i) => i.id === selectedProduct.id)
+    const AddToCart = async (selectedProduct) => {
+        let updatedCart;
+                const item = cartItems.find((i) => i.id === selectedProduct.id);
 
         if (item) {
-             updatedCart = cartItems.map(i =>
+            updatedCart = cartItems.map((i) =>
                 i.id === selectedProduct.id
                     ? { ...i, quantity: i.quantity + 1 }
                     : i
             )
         } else {
-            updatedCart = [...cartItems, { ...selectedProduct, quantity: 1 }]
+            updatedCart = [...cartItems,
+                 { ...selectedProduct, quantity: 1 }
+                ] 
         }
-        setCartItems(updatedCart)
-        await saveData(updatedCart)
+        setCartItems(AddToCart)
+        await saveData(AddToCart)
     }
 
 
