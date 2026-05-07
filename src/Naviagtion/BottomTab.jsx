@@ -15,14 +15,14 @@ const Tab = createBottomTabNavigator()
 
 const BottomTab = () => {
   const { cartItems } = useContext(CartContextData)
-
+  const { wishItems } = useContext(CartContextData)
   return (
 
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: '#F83758',
-        
+
       }} >
 
       {/* <Tab.Screen name='Drawer' component={Drawer}
@@ -47,27 +47,33 @@ const BottomTab = () => {
             return (
               <View>
                 <Icon name="cart-outline" size={size} color={color} style={styles.Container}></Icon>
-                <View>
-                  <Text style={styles.countTxt}>
-                    {cartItems?.length}
-                  </Text>
-                </View>
+                <Text style={styles.countTxt}>
+                  {cartItems?.length}
+                </Text>
 
               </View>
             )
 
           },
-          // tabBarBadge: cartItems?.length > 0 ? cartItems.length : null,
 
-
-
-          // tabBarBadge
         }} />
+
+
       <Tab.Screen name='WishList' component={WishList}
         options={{
           tabBarIcon: ({ size, color }) => {
-            return (<Icon name="person-outline" size={size} color={color}></Icon>)
-          }
+            return (
+              <View>
+                <Icon name="heart-outline" size={size} color={color} style={styles.Container}></Icon>
+                <Text style={styles.countWishItems}>
+                  {wishItems?.length}
+                </Text>
+
+              </View>
+            )
+
+          },
+
         }} />
 
     </Tab.Navigator>
@@ -80,13 +86,21 @@ export default BottomTab;
 const styles = StyleSheet.create(
   {
     Container: {
-      position: 'absolute',
-      left: Margins.ToosmallMargin
+      top: 5,
+      position: 'absolute'
     },
     countTxt: {
       paddingLeft: Padding.mm,
       color: 'red',
-      paddingBottom: Padding.small
+      paddingBottom: 13
+
+    },
+    countWishItems:
+    {
+      paddingLeft: Padding.mm,
+      color: 'red',
+      paddingBottom: 35
+
     }
   }
 )

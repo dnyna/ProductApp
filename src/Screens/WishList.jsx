@@ -1,14 +1,21 @@
 
 
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, Image } from 'react-native'
 import React from 'react'
-import {CartContextData}from '../Context/CartContext'
+import { WishContextData } from '../Context/WishListContext'
 import { useContext } from 'react'
+import Color from '../styles/Colors'
+import Padding from '../styles/Padding'
+import Sizes from '../styles/Sizes'
+import Gaps from '../styles/Gap'
+import Borders from '../styles/Borders'
+import Boldness from '../styles/Boldness'
 const WishList = () => {
-  const{wishItems} = useContext(CartContextData);
+  const { wishItems } = useContext(WishContextData);
+  console.log(wishItems, 'wishItems')
   return (
-    <View>
-       <ScrollView>
+    <View style={{ paddingTop: 63 }}>
+      <ScrollView>
         {wishItems.map((item, idx) => (
           <View key={idx} style={styles.mapView}>
             <View key={item.id} style={styles.product}>
@@ -20,47 +27,12 @@ const WishList = () => {
                 </View>
                 <Text style={styles.title} numberOfLines={4} ellipsizeMode='tail'>{item.title}</Text>
 
-                <View style={styles.qtyIncDecWrapper}>
-                  <Text style={styles.txtFont}>Qty:</Text>
-                  <View style={styles.incDecQty}>
-                    <TouchableOpacity onPress={() => DecreaseQty(item.id)}><Text style={styles.txtFont}>-</Text></TouchableOpacity>
-                    <Text style={styles.txtFont}>{item.quantity}</Text>
-                    <TouchableOpacity onPress={() => IncreaseQty(item.id)}><Text style={styles.txtFont}>+</Text></TouchableOpacity>
-                  </View>
-                  <TouchableOpacity onPress={() => RemoveFromCart(item.id)} >
-                    <IonIcons name='trash-outline' size={24} color={'red'}></IonIcons>
-                  </TouchableOpacity>
-                </View>
-
-                <Text style={styles.pricing}>Price : ₹{item.price.toFixed(0) * item.quantity} </Text>
-                <Text style={styles.deliveryDate}>Delivery by </Text>
               </View>
             </View>
           </View>
 
         ))}
-
-        <View style={styles.mainOrderView}>
-
-          <Text style={styles.orderDetailTxt}>Order Payment Details</Text>
-          <View style={styles.OrderAmnt}>
-            <Text>Order Amounts</Text>
-            <Text>₹{TotalPrice.toFixed(0)}</Text>
-          </View>
-
-          <View style={styles.coupon}>
-            <Text style={styles.conveniencetxt}>Convenience</Text>
-            <TouchableOpacity><Text style={{ color: Color.buttonColor }}>Know more</Text></TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.AplyCupn}>Apply Coupon</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.deliveryFree}>
-            <Text>Delivery Free</Text>
-            <Text style={styles.freeTxt}>free</Text>
-          </View>
  
-        </View>
       </ScrollView>
     </View>
   )
@@ -69,5 +41,43 @@ const WishList = () => {
 export default WishList
 
 const styles = StyleSheet.create({
+  mapView: {
+    paddingLeft: Padding.Mm,
+    borderBottomWidth: Borders.m,
+    borderColor: '#CACACA',
+    elevation: 1,
+    backgroundColor: Color.backGroundColor
+  },
+  product: {
+    flexDirection: 'row',
+
+  },
+  productImage: {
+    height: Sizes.oFTT,
+    width: Sizes.largeOTF,
+    resizeMode: 'contain'
+  },
+  textProduct: {
+    paddingLeft: Padding.mm,
+    paddingTop: Padding.mS,
+    paddingBottom: Padding.Middle,
+
+  },
+
+  catDelWrapper: {
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    gap: Gaps.L
+  },
+  category: {
+    paddingBottom: Padding.mS,
+    fontSize: Sizes.mm,
+    fontWeight: Boldness.l,
+  },
+  title: {
+    paddingBottom: Padding.mS
+  },
+
+
 
 })

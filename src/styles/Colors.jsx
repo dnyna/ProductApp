@@ -15,7 +15,9 @@ borderColor:'#CACACA',
 backGroundColor:'#FDFDFD',
 sizeQuantityBg:'#F2F2F2',
 HeadingColor:'#000',
-searchIcon:'#BBBBBB'
+searchIcon:'#BBBBBB',
+lightgrey:'#C8C8C8',
+underLine:'#C4C4C4'
 };
 export default Color;
 

@@ -56,25 +56,6 @@ const CartContext = ({ children }) => {
         await saveData(updatedCart)
     }
 
-    //WishList
-    const AddToWish = async (selectedProduct) => {
-        let updatedWishList;
-        const item = cartItems.find((i) => i.id === selectedProduct.id);
-
-        if (item) {
-            updatedWishList = cartItems.map((i) =>
-                i.id === selectedProduct.id
-                    ? { ...i, quantity: i.quantity + 1 }
-                    : i
-            )
-        } else {
-            updatedCart = [...cartItems,
-            { ...selectedProduct, quantity: 1 }
-            ]
-        }
-        setCartItems(updatedWishList)
-        await saveData(updatedWishList)
-    }
 
     //remove from cart
 
@@ -111,8 +92,7 @@ const CartContext = ({ children }) => {
                 RemoveFromCart,
                 IncreaseQty,
                 DecreaseQty,
-                LoadCartItem,
-                AddToWish
+                LoadCartItem
 
             }}>
             {children}

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Modal } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { CartContextData } from '../Context/CartContext';
 import Color from '../styles/Colors';
@@ -41,7 +41,7 @@ const Cart = () => {
           <Image source={BackArrow} style={styles.backArrow} />
         </TouchableOpacity>
         <Text style={styles.ShppingBag}>Shopping Bag</Text>
-        <TouchableOpacity style={styles.fav}>
+        <TouchableOpacity style={styles.fav} onPress={()=>Navigation.navigate('WishList')}>
           <Image source={favourite} />
         </TouchableOpacity>
       </View>

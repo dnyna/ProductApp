@@ -8,6 +8,7 @@ import GetStarted from '../Screens/GetStarted'
 import ShopPage from '../Screens/ShopPage'
 import Cart from '../Screens/Cart'
 import BottomTab from './BottomTab'
+import ProfilScreen from '../Screens/ProfilScreen'
 const Stack = createStackNavigator()
 const Navigator = () => {
   return (
@@ -37,6 +38,11 @@ const Navigator = () => {
         }}
         />
         <Stack.Screen name='MainTab' component={BottomTab}
+        />
+        <Stack.Screen name='Profile' component={ProfilScreen}
+          options={{
+          headerShown:false
+        }}
         />
 
         <Stack.Screen name='ShopPage' component={ShopPage} 

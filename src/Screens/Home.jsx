@@ -26,9 +26,9 @@ const Home = () => {
   const [loading, setLoading] = useState(true) //loading state for api data
   const [refresh, setRefresh] = useState(false)// to refresh the state 
   const [sortOrder, setSortOrder] = useState(null) //for storing sort order
-  const [likedItem, setLikedItems] = useState(false) // stores liked products
+  const [likedItem, setLikedItems] = useState([]) // stores liked products
   const [listening, setListening] = useState(false) // tracks microphones
-  
+
   //  Fetch Data
   const { AddToWish } = useContext(CartContextData)
 
@@ -85,7 +85,7 @@ const Home = () => {
 
     const filtered = products.filter(item =>
       item.category?.toLowerCase().includes(query.toLowerCase())
-    
+
     )
 
     setDisplayData(filtered)
@@ -109,7 +109,7 @@ const Home = () => {
       sorted.sort((a, b) => b.price - a.price)
       setSortOrder('high')
     } else {
-      sorted.sort((a, b) => a.price - b.price) 
+      sorted.sort((a, b) => a.price - b.price)
       setSortOrder('low')
     }
     setDisplayData(sorted)
@@ -124,11 +124,12 @@ const Home = () => {
 
   //WishList LIked/unliked products
 
-  const ToggleLike = (id) => {
+  const ToggleLike = (item) => {
     setLikedItems((prev) => ({
       ...prev,
-      [id]: !prev[id]
+      [item.id]: !prev[item.id]
     }))
+    AddToWish(item.id)
   }
 
   // renders Product #cart
@@ -158,7 +159,7 @@ const Home = () => {
             ⭐ {item.rating?.rate} ({item.rating?.count})
           </Text>
         </View>
-        <TouchableOpacity style={styles.heartContainer} onPress={() => ToggleLike(item.id)}>
+        <TouchableOpacity style={styles.heartContainer} onPress={() => {ToggleLike(item), Navigation.navigate('WishList')}}>
           {
             likedItem[item.id] ? (<Ionicons name='heart' color={'red'} size={25} />
             )

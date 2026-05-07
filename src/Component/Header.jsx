@@ -14,8 +14,8 @@ const Header = () => {
 
     <View style={styles.container}>
       <View style={styles.headerContent}>
-        <TouchableOpacity style={styles.ProfileContainer}>
-          <Image source={ProfilePicture}/>
+        <TouchableOpacity style={styles.ProfileContainer} onPress={() => navigation.navigate('Profile')}>
+          <Image source={ProfilePicture} />
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.StylishLogoWrapper}>
@@ -23,7 +23,7 @@ const Header = () => {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.LeftIconWrapper} onPress={() => navigation.openDrawer()}>
-          <Image source={LeftIcon}/>
+          <Image source={LeftIcon} />
         </TouchableOpacity>
       </View>
     </View>

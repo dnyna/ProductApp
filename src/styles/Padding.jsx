@@ -27,6 +27,7 @@ const Padding = {
     X:44,
     xll:46,
     SE:53,
+    FS:57,
     ST:60,
     Xl:63,
     ll:66,
@@ -34,10 +35,13 @@ const Padding = {
     XxL:78,
     century:100,
     OOT:170,
+    oott:113,
     XXXL:125,
     XXXxL:135,
+    OFTwo:142,
     XXXXL:154,
     XXXXXL:162,
+    hugeTOZ:210,
     HugePadding:290,
     Huge:600
 
