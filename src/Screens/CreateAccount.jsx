@@ -42,7 +42,7 @@ const App = () => {
 
       await AsyncStorage.setItem('userData', JSON.stringify('userData',userData))
       console.log(userData, 'userData')
-      Alert.alert('CREATED ACCOUNT SUCCESSFULLY')
+      Alert.alert('ACCOUNT CREATED SUCCESSFULLY')
 
       setUser('')
       setPassword('')
@@ -59,7 +59,6 @@ const App = () => {
 
       <View style={styles.welcomWrapper}>
         <Text style={styles.welcome}>Create an           account
-
         </Text>
       </View>
 

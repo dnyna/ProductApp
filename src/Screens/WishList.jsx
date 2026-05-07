@@ -8,7 +8,7 @@ const WishList = () => {
   const{wishItems} = useContext(CartContextData);
   return (
     <View>
-       {/* <ScrollView>
+       <ScrollView>
         {wishItems.map((item, idx) => (
           <View key={idx} style={styles.mapView}>
             <View key={item.id} style={styles.product}>
@@ -61,7 +61,7 @@ const WishList = () => {
           </View>
  
         </View>
-      </ScrollView> */}
+      </ScrollView>
     </View>
   )
 }

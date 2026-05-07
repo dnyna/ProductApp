@@ -16,7 +16,6 @@ import NoDataFound from '../Component/NoDataFound'
 import Color from '../styles/Colors'
 import Gaps from '../styles/Gap'
 import { micEvents, SpeechToText } from 'react-native-speech-convertor';
-// import Voice from '@react-native-voice/voice'
 const Home = () => {
 
   const Navigation = useNavigation() //used for screen Navigation one of the hook
@@ -31,8 +30,8 @@ const Home = () => {
   const [listening, setListening] = useState(false) // tracks microphones
   
   //  Fetch Data
+  const { AddToWish } = useContext(CartContextData)
 
-  // const { AddToWishList } = useContext(CartContextData)
 
   // Listen for recognized speech results
   useEffect(() => {
@@ -110,7 +109,7 @@ const Home = () => {
       sorted.sort((a, b) => b.price - a.price)
       setSortOrder('high')
     } else {
-      sorted.sort((a, b) => a.price - b.price)
+      sorted.sort((a, b) => a.price - b.price) 
       setSortOrder('low')
     }
     setDisplayData(sorted)
@@ -132,7 +131,7 @@ const Home = () => {
     }))
   }
 
-  // renders Product
+  // renders Product #cart
   const renderProducts = ({ item }) => (
     <TouchableOpacity
       style={styles.cart}
