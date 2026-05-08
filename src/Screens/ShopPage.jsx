@@ -1,12 +1,11 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-// import Margins from '../styles/margin';
-// import Color from '../styles/Colors';
+
 import Sizes from '../styles/Sizes';
 import Borders from '../styles/Borders'
 import Radius from '../styles/Radius';
 import { CartContextData } from '../Context/CartContext'
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Padding from '../styles/Padding';
 import IonIcons from 'react-native-vector-icons/Ionicons'
 import Gaps from '../styles/Gap';
@@ -14,10 +13,13 @@ import Boldness from '../styles/Boldness';
 // import AsyncStorage from '@react-native-async-storage/async-storage'
 const ShopPage = ({ route }) => {
 
+  const [isAdded, setIsAdded] = useState(false)
   const Navigation = useNavigation()// useNavigation hook  used here to navigate from one scree to another
   const { selctedProduct } = route.params; //  getting the product where we are clicking on by using params
 
   const { AddToCart } = useContext(CartContextData)
+  const { RemoveFromCart } = useContext(CartContextData)
+
 
   const vip = require('../Assets/vip.png')
   const nearestStore = require('../Assets/nearestStore.png') //bottom images 
@@ -71,19 +73,28 @@ const ShopPage = ({ route }) => {
       </View>
 
       <View style={styles.BtnWrapper}>
-        <TouchableOpacity
-          style={styles.ADDCartBtn}
-          onPress={() => AddToCart(selctedProduct)}
+        <TouchableOpacity style={[styles.ADDCartBtn,
+        { backgroundColor: isAdded ? '#F83758' : '#0f85cf' }
+        ]}
+          onPress={() => {
+            if (isAdded) {
+              RemoveFromCart(selctedProduct)
+
+            } else {
+              AddToCart(selctedProduct)
+            }
+            setIsAdded(!isAdded)
+          }}
         >
           <Image source={cartImg} style={{ Size: Sizes.middle }} />
           <Text style={styles.AddCrtTxt}>
-            Add To Cart
+            {isAdded ? 'RemoveFromCart' : ' Add To Cart'}
           </Text>
         </TouchableOpacity>
       </View>
 
 
-    </View>
+    </View >
   );
 };
 
@@ -141,7 +152,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.XXXXXL,
     backgroundColor: '#3F92FF',
     height: Sizes.Xl,
-    width: Sizes.sizeOTSix,
+    width: Sizes.larger,
   },
 
   productImage: {

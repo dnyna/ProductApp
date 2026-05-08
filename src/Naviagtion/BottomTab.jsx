@@ -10,12 +10,13 @@ import { CartContextData } from '../Context/CartContext'
 import Padding from '../styles/Padding'
 import Margins from '../styles/margin'
 import Drawer from './Drawer'
+import { WishContextData } from '../Context/WishListContext'
 // import CartContext from '../Context/CartContext'
 const Tab = createBottomTabNavigator()
 
 const BottomTab = () => {
   const { cartItems } = useContext(CartContextData)
-  const { wishItems } = useContext(CartContextData)
+  const { wishItems } = useContext(WishContextData)
   return (
 
     <Tab.Navigator
@@ -43,6 +44,7 @@ const BottomTab = () => {
       />
       <Tab.Screen name='Cart' component={Cart}
         options={{
+          tabBarBadge: cartItems?.length > 0 ? cartItems.length : null,
           tabBarIcon: ({ size, color }) => {
             return (
               <View>
@@ -53,7 +55,6 @@ const BottomTab = () => {
 
               </View>
             )
-
           },
 
         }} />
@@ -61,6 +62,7 @@ const BottomTab = () => {
 
       <Tab.Screen name='WishList' component={WishList}
         options={{
+          tabBarBadge: wishItems?.length > 0 ? wishItems.length : null,
           tabBarIcon: ({ size, color }) => {
             return (
               <View>

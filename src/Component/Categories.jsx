@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Modal } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Modal, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import Sizes from '../styles/Sizes'
 import Color from '../styles/Colors'
@@ -44,10 +44,9 @@ const Categories = ({ onSelectCategory, onSort }) => {
                 </View>
             </View>
 
-            {/* Categories */}  
+            {/* Categories */}
 
             <View style={styles.categoryContainer}>
-
                 <TouchableOpacity onPress={() => onSelectCategory('jewelery')}>
                     <Image source={SecondImg} />
                     <Text style={styles.catText}>jewelery</Text>
@@ -69,6 +68,7 @@ const Categories = ({ onSelectCategory, onSort }) => {
                 </TouchableOpacity>
 
             </View>
+
 
             {/* modal for the filter */}
 
@@ -162,10 +162,10 @@ const styles = StyleSheet.create({
         gap: Gaps.C,
         justifyContent: 'space-evenly',
         paddingRight: Padding.TF,
-        paddingBottom:Padding.mS,
+        paddingBottom: Padding.mS,
         backgroundColor: Color.bgColor
     },
-    catText: { fontSize: Sizes.extraSmall, paddingLeft:Padding.small, fontWeight: Boldness.m },
+    catText: { fontSize: Sizes.extraSmall, paddingLeft: Padding.small, fontWeight: Boldness.m },
     Box: {
         height: Sizes.larger,
         width: Sizes.OneFRT,
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         alignItems: 'center',
         padding: Padding.s,
-        gap:Gaps.B
+        gap: Gaps.B
 
     },
 

@@ -3,21 +3,26 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 export const WishContextData = createContext()
 
 const WishContext = ({ children }) => {
-    const[wishItems, setWishItems] = useState([])
+    const [wishItems, setWishItems] = useState([])
     //getItem
 
-    const LoadLikedItems = async () => {
-        try {
-            let LikedItems = await AsyncStorage.getItem('wish');
-            LikedItems = LikedItems ? JSON.parse(LikedItems) : [];
-            setWishItems(items);
-        } catch (error) {
-            console.log('error')
+    useEffect(() => {
+        const LoadLikedItems = async () => {
+            try {
+                let LikedItems = await AsyncStorage.getItem('wish');
+                LikedItems = LikedItems ? JSON.parse(LikedItems) : [];
+                setWishItems(LikedItems);
+            } catch (error) {
+                console.log('error')
+            }
+
         }
+        LoadLikedItems()
+    }, [])
 
-    }
 
-    //setItem
+
+    //setItem for save wishlist
 
     const saveLikedItems = async (items) => {
         try {
@@ -27,29 +32,33 @@ const WishContext = ({ children }) => {
         }
 
     }
-    //WishList
+
+    const RemoveFromWishList = (selectedProduct) => {
+        const filtered = wishItems.filter(item => item.id !== selectedProduct)
+        setWishItems(filtered)
+    }
+    //adding items toWishList
     const AddToWish = async (selectedProduct) => {
-        const item = wishItems.find(
+        const itemExits = wishItems.find(
             (i) => i.id === selectedProduct.id);
 
-        if (!item) {
-            setWishItems([...wishItems,selectedProduct])
-                
-          
-        } 
-        setWishItems(LoadLikedItems)
-        await saveLikedItems(LoadLikedItems)
+        if (!itemExits) {
+            const updatedItems = ([...wishItems, selectedProduct])
+            setWishItems(updatedItems)
+
+
+        }
+        await saveLikedItems(updatedItems)
     }
 
-    
+
 
     return (
         <WishContextData.Provider
-            value={{                
+            value={{
                 AddToWish,
                 wishItems,
-               
-
+                RemoveFromWishList
             }}>
             {children}
         </WishContextData.Provider>

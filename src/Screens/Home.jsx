@@ -1,6 +1,5 @@
 import { Image, StyleSheet, TextInput, View, TouchableOpacity, Text, FlatList, Button } from 'react-native'
 import React, { useEffect, useState, useContext } from 'react'
-import { CartContextData } from '../Context/CartContext'
 import { useNavigation } from '@react-navigation/native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Header from '../Component/Header'
@@ -16,6 +15,7 @@ import NoDataFound from '../Component/NoDataFound'
 import Color from '../styles/Colors'
 import Gaps from '../styles/Gap'
 import { micEvents, SpeechToText } from 'react-native-speech-convertor';
+import { WishContextData } from '../Context/WishListContext'
 const Home = () => {
 
   const Navigation = useNavigation() //used for screen Navigation one of the hook
@@ -26,12 +26,12 @@ const Home = () => {
   const [loading, setLoading] = useState(true) //loading state for api data
   const [refresh, setRefresh] = useState(false)// to refresh the state 
   const [sortOrder, setSortOrder] = useState(null) //for storing sort order
-  const [likedItem, setLikedItems] = useState([]) // stores liked products
+  const [likedItem, setLikedItems] = useState(false) // stores liked products
   const [listening, setListening] = useState(false) // tracks microphones
 
   //  Fetch Data
-  const { AddToWish } = useContext(CartContextData)
-
+  const { AddToWish } = useContext(WishContextData)
+  const { RemoveFromWishList } = useContext(WishContextData)
 
   // Listen for recognized speech results
   useEffect(() => {
@@ -125,11 +125,17 @@ const Home = () => {
   //WishList LIked/unliked products
 
   const ToggleLike = (item) => {
+    const isLiked = likedItem[item.id]
     setLikedItems((prev) => ({
       ...prev,
       [item.id]: !prev[item.id]
     }))
-    AddToWish(item.id)
+    if (isLiked) {
+      RemoveFromWishList(item.id)
+    } else {
+      AddToWish(item)
+
+    }
   }
 
   // renders Product #cart
@@ -159,7 +165,7 @@ const Home = () => {
             ⭐ {item.rating?.rate} ({item.rating?.count})
           </Text>
         </View>
-        <TouchableOpacity style={styles.heartContainer} onPress={() => {ToggleLike(item), Navigation.navigate('WishList')}}>
+        <TouchableOpacity style={styles.heartContainer} onPress={() => { ToggleLike(item) }}>
           {
             likedItem[item.id] ? (<Ionicons name='heart' color={'red'} size={25} />
             )

@@ -1,7 +1,8 @@
 
 
-import { StyleSheet, Text, View, ScrollView, Image } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image } from 'react-native'
 import React from 'react'
+import IonIcons from 'react-native-vector-icons/Ionicons'
 import { WishContextData } from '../Context/WishListContext'
 import { useContext } from 'react'
 import Color from '../styles/Colors'
@@ -12,6 +13,8 @@ import Borders from '../styles/Borders'
 import Boldness from '../styles/Boldness'
 const WishList = () => {
   const { wishItems } = useContext(WishContextData);
+  const { RemoveFromWishList } = useContext(WishContextData) // to remove the cart item using the context
+
   console.log(wishItems, 'wishItems')
   return (
     <View style={{ paddingTop: 63 }}>
@@ -27,12 +30,21 @@ const WishList = () => {
                 </View>
                 <Text style={styles.title} numberOfLines={4} ellipsizeMode='tail'>{item.title}</Text>
 
+                <View style={styles.qtyIncDecWrapper}>
+                  <Text style={styles.pricing}>Price : ₹{item.price.toFixed(0)} </Text>
+
+                  <TouchableOpacity onPress={() => RemoveFromWishList(item.id)} >
+                    <IonIcons name='trash-outline' size={24} color={'red'}></IonIcons>
+                  </TouchableOpacity>
+
+                </View>
+
               </View>
             </View>
           </View>
 
         ))}
- 
+
       </ScrollView>
     </View>
   )
@@ -73,6 +85,14 @@ const styles = StyleSheet.create({
     paddingBottom: Padding.mS,
     fontSize: Sizes.mm,
     fontWeight: Boldness.l,
+  },
+  pricing: {
+    paddingTop: Padding.mS
+  },
+  qtyIncDecWrapper: {
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    gap: Gaps.C,
   },
   title: {
     paddingBottom: Padding.mS

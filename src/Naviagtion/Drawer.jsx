@@ -6,38 +6,49 @@ import Cart from '../Screens/Cart'
 import WishList from '../Screens/WishList'
 import HelpCenter from '../Screens/HelpCenter'
 import IonIcons from 'react-native-vector-icons/Ionicons'
+import CustomDrawer from '../Component/CustomDrawer'
 const Drawers = createDrawerNavigator();
 
 const Drawer = () => {
     return (
-        <Drawers.Navigator>
+        <Drawers.Navigator drawerContent={props => <CustomDrawer {...props} />}>
             <Drawers.Screen name='Home' component={Home}
                 options={
                     {
-                        headerShown: false
+                        headerShown: false,
+                        drawerIcon: ({ color }) => (
+                            <IonIcons name='home-outline' size={22} color={color} />
+                        )
                     }
                 } />
+                
             <Drawers.Screen name='Cart' component={Cart}
                 options={
                     {
-                        headerShown: false
+                        headerShown: false,
+                        drawerIcon: ({ color }) => (
+                            <IonIcons name='cart-outline' size={22} color={color} />
+                        )
                     }
                 } />
+
             <Drawers.Screen name='WishList' component={WishList}
                 options={
                     {
-                        headerShown: false
+                        headerShown: false,
+                        drawerIcon: ({ color }) => (
+                            <IonIcons name='heart-outline' size={22} color={color} />
+                        )
                     }
                 } />
+
             <Drawers.Screen name='HelpCenter' component={HelpCenter}
                 options={
                     {
-                        drawerIcon: ({ focused, size }) => {
-                            <IonIcons name={focused ? 'heart' : 'heart-outline'}
-                                size={size}
-                            />
-                        },
-                        headerShown: false
+                        headerShown: false,
+                        drawerIcon: ({ color }) => (
+                            <IonIcons name='help-circle-outline' size={22} color={color} />
+                        )
                     }
                 } />
         </Drawers.Navigator>
