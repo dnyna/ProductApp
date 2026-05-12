@@ -13,7 +13,7 @@ import { useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
-const App = () => {
+const CreateAccount = () => {
   const Navigation = useNavigation()
   const GoogleImg = require('../Assets/Buttons.png')
   const Lock = require('../Assets/lock.png')
@@ -27,20 +27,23 @@ const App = () => {
 
   const handleSignUp = async () => {
     if (!user.trim() || !password.trim() || !confPassword.trim()) //.trim() is used for rrmoing extra space from staringand he end of the string
-       {
+    {
       Alert.alert('enter username and password')
-          return
+      return
+    }
 
+    if (password !== confPassword) {
+      Alert.alert('please enter password properly, its not matching')
+      return
     }
 
     try {
       const userData = {
         username: user,
         password: password,
-        condfirmPassword: confPassword
       }
-
-      await AsyncStorage.setItem('userData', JSON.stringify('userData',userData))
+      //save Data
+      await AsyncStorage.setItem('userData', JSON.stringify(userData))
       console.log(userData, 'userData')
       Alert.alert('ACCOUNT CREATED SUCCESSFULLY')
 
@@ -86,7 +89,7 @@ const App = () => {
 
 
       <View style={styles.Btns}>
-        <TouchableOpacity style={styles.CreateBtn} onPress={ handleSignUp}>
+        <TouchableOpacity style={styles.CreateBtn} onPress={handleSignUp}>
           < Text style={styles.CreateAccText}>
             Create An Account
           </Text>
@@ -117,7 +120,7 @@ const App = () => {
   )
 }
 
-export default App
+export default CreateAccount
 
 const styles = StyleSheet.create({
 

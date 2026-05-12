@@ -1,33 +1,33 @@
-// import { createContext, useState } from "react"
+import { createContext, useState } from "react"
 
 
-// export const ThemeToggleContex = createContext()
+export const ThemeToggleContex = createContext()
 
 
-// const ThemeContext = ({ children }) => {
-//     const [mode, setMode] = useState(false)
+const ThemeContext = ({ children }) => {
+    const [mode, setMode] = useState(false)
 
-//     const ToggleTheme = async () => {
-//         setMode(!mode)
-//     };
+    const ToggleTheme =  () => {
+        setMode(!mode)
+    };
 
-//     const Theme = {
-//         backgroundColor :mode ?'black':'white',
-//         color : mode ? 'white': 'black',
-//         CardColor: mode ? 'white': 'black',
-//     }
+    const Theme = {
+        backgroundColor :mode ?'black':'white',
+        color : mode ? 'white': 'black',
+        CardColor: mode ? 'white': 'black',
+    }
 
 
-//     return (
-//         <ThemeContext.Provider
-//             value={{
-//                 Theme,
-//                 mode,
-//                 ToggleTheme
-//             }}>
-//             {children}
-//         </ThemeContext.Provider>
-//     )
-// }
+    return (
+        <ThemeToggleContex.Provider
+            value={{
+                Theme,
+                mode,
+                ToggleTheme
+            }}>
+            {children}
+        </ThemeToggleContex.Provider>
+    )
+}
 
-// export default ThemeContext
+export default ThemeContext

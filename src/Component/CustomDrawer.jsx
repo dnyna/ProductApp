@@ -1,15 +1,16 @@
-import { StyleSheet, Image, View, Text } from 'react-native'
+import { StyleSheet, Image, View, Text, TouchableOpacity } from 'react-native'
 import React, { useContext, useState } from 'react'
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer'
 import Sizes from '../styles/Sizes'
 import Boldness from '../styles/Boldness'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Switch, } from 'react-native';
-// import { ThemeToggleContex } from '../Context/ThemeContext'
+import { ThemeToggleContex } from '../Context/ThemeContext'
+import { useNavigation } from '@react-navigation/native'
 const CustomDrawer = (props) => {
-    const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-    // const {mode,Theme,ToggleTheme}= useContext(ThemeToggleContex)
+    const Navigation = useNavigation()
+    const { mode, Theme, ToggleTheme } = useContext(ThemeToggleContex)
+
     return (
         <View style={styles.containerFirst}>
             <DrawerContentScrollView {...props}
@@ -20,7 +21,7 @@ const CustomDrawer = (props) => {
 
                 <View style={{ paddingTop: 10 }}>
                     <DrawerItemList {...props} />
-                </View>
+                </View>  
 
                 {/* underline */}
 
@@ -29,23 +30,24 @@ const CustomDrawer = (props) => {
                 {/* Switch */}
 
                 <View style={{ flexDirection: 'row', paddingTop: 30 }}>
-                    <Text style={{ fontSize: 16 }}>Dark Theme</Text>
+                    <Text style={styles.darkThemeTxt}>Dark Theme</Text>
                     <View style={styles.container}>
                         <Switch
                             trackColor={{ false: '#767577', true: '#81b0ff' }}
-                            thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+                            thumbColor={mode ? '#f5dd4b' : '#f4f3f4'}
                             ios_backgroundColor="#3e3e3e"
-                            onValueChange={toggleSwitch}
-                            value={isEnabled}
-                            style={{ paddingLeft: 120 }}
+                            onValueChange={ToggleTheme}
+                            value={mode}
+                            style={styles.switch}
+                            
                         />
                     </View>
                 </View>
             </DrawerContentScrollView>
-            <View style={{ padding: 30, flexDirection: 'row', gap: 10 }}>
-                <Text style={{ fontSize: 16 }}>LogOut</Text>
+            <TouchableOpacity onPress={() => Navigation.navigate('CreateAccount')} style={styles.logOutBtn}>
+                <Text style={styles.BtnTxt}>LogOut</Text>
                 <Ionicons name='log-out-outline' size={20} />
-            </View>
+            </TouchableOpacity>
         </View>
 
     )
@@ -54,11 +56,19 @@ const CustomDrawer = (props) => {
 export default CustomDrawer
 
 const styles = StyleSheet.create({
-    containerFirst: { flex: 1, },
+    containerFirst: {
+        flex: 1,
+    },
+    darkThemeTxt: {
+        fontSize: 16
+    },
     container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    switch: {
+        paddingLeft: 120
     },
     profileImg: {
         height: 80,
@@ -77,5 +87,13 @@ const styles = StyleSheet.create({
         paddingBottom: 20
 
 
+    },
+    logOutBtn: {
+        padding: 30,
+        flexDirection: 'row',
+        gap: 10
+    },
+    BtnTxt: {
+        fontSize: 16
     }
 })

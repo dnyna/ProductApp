@@ -4,10 +4,10 @@ import BottomTab from './src/Naviagtion/BottomTab'
 import Drawer from './src/Naviagtion/Drawer'
 import CartContext from './src/Context/CartContext'
 import WishContext from './src/Context/WishListContext'
-// import  ThemeContext from './src/Context/ThemeContext'
+import  ThemeToggleContex from './src/Context/ThemeContext'
 const App = () => {
   return (
-  
+    <ThemeToggleContex>
       <WishContext>
         <CartContext>
           <Navigator>
@@ -17,6 +17,7 @@ const App = () => {
           </Navigator>
         </CartContext>
       </WishContext>
+    </ThemeToggleContex>
   )
 }
 

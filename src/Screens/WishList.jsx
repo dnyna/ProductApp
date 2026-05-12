@@ -9,7 +9,7 @@ import Color from '../styles/Colors'
 import Padding from '../styles/Padding'
 import Sizes from '../styles/Sizes'
 import Gaps from '../styles/Gap'
-import Borders from '../styles/Borders'
+import Borders from '../styles/Borders'   
 import Boldness from '../styles/Boldness'
 const WishList = () => {
   const { wishItems } = useContext(WishContextData);

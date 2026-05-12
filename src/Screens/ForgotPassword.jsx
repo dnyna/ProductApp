@@ -63,13 +63,13 @@ const styles = StyleSheet.create({
   },
 
   email: {
-        color: Color.blackClr,
+    color: Color.blackClr,
     borderWidth: Borders.s,
     borderRadius: Radius.XXXXL,
     paddingTop: Padding.mm,
     paddingBottom: Padding.B,
-    borderColor:Color.borderInputColor,
-    paddingLeft:Padding.X
+    borderColor: Color.borderInputColor,
+    paddingLeft: Padding.X
 
   },
   txt: {
@@ -85,14 +85,14 @@ const styles = StyleSheet.create({
   submit: {
     borderRadius: Radius.S,
     backgroundColor: Color.buttonColor,
-  
+
   },
   SubmitTxt: {
     color: Color.bgColor,
     fontSize: Sizes.Ml,
     paddingTop: Padding.Middle,
     paddingBottom: Padding.Middle,
-    paddingLeft:Padding.XXXL
+    paddingLeft: Padding.XXXL
   },
   mailIcon: {
     position: 'absolute',

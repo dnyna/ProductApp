@@ -21,7 +21,7 @@ const Drawer = () => {
                         )
                     }
                 } />
-                
+
             <Drawers.Screen name='Cart' component={Cart}
                 options={
                     {

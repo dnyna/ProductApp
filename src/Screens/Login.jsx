@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image, Alert } from 'react-native'
 import React, { useState } from 'react'
 import Color from '../styles/Colors'
 import Sizes from '../../src/styles/Sizes'
@@ -13,8 +13,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 const App = () => {
   const Navigation = useNavigation()
 
-
-
   const Lock = require('../Assets/lock.png')
   const Eye = require('../Assets/eye.png')
   const userImg = require('../Assets/User.png')
@@ -22,16 +20,35 @@ const App = () => {
   const [user, setUser] = useState('')
   const [password, setPassword] = useState('')
 
-  const getUserData = async ()=>{
-    const data = await AsyncStorage.getItem('userData')
-    console.log('data')
-    if(data){
-      const userData = JSON.parse(userData)
-      console.log(userData)
-    }else{
-      console.log('no account');
-      
+  const getUserData = async () => {
+    try {
+      const data = await AsyncStorage.getItem('userData')
+      // console.log('data')
+      if (data !== null) {
+        const userData = JSON.parse(data)
+        console.log(userData)
+
+
+        if (user == userData.username && password == userData.password) {
+          Alert.alert('login successfully')
+          Navigation.navigate('GetStarted')
+        }
+
+        else {
+          Alert.alert('username or password is incorrect')
+        }
+      }
+      else {
+        Alert.alert('no account Found')
+      }
+
     }
+
+    catch (error) {
+      console.log(error);
+
+    }
+
   }
   return (
     <View style={styles.container}>
@@ -71,6 +88,7 @@ const App = () => {
             placeholderTextColor={'#676767'}
             value={password}
             onChangeText={setPassword}
+            secureTextEntry={true}
           />
         </View>
         <TouchableOpacity style={styles.forgotPassword} onPress={() => Navigation.navigate('ForgotPassword')}>
@@ -81,11 +99,11 @@ const App = () => {
 
       </View>
       <View style={styles.loginWrapper}>
-        <TouchableOpacity style={styles.loginBtn} onPress={() => Navigation.navigate('GetStarted')}>
+        <TouchableOpacity style={styles.loginBtn} onPress={getUserData}>
           <Text style={styles.loginText}>
             Login
           </Text>
-        </TouchableOpacity> 
+        </TouchableOpacity>
       </View>
 
       <ContinueWithFooter />

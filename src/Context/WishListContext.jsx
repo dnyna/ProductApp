@@ -58,7 +58,7 @@ const WishContext = ({ children }) => {
             value={{
                 AddToWish,
                 wishItems,
-                RemoveFromWishList
+                RemoveFromWishList, 
             }}>
             {children}
         </WishContextData.Provider>
