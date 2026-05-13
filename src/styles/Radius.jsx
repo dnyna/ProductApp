@@ -11,6 +11,5 @@ XXXL:9,
 XXXXL:10,
 XXXXXL:20,
 TFOUR:24
-
 }
 export default Radius

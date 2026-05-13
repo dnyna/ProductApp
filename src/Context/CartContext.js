@@ -33,8 +33,6 @@ const CartContext = ({ children }) => {
 
     }
 
-    //removeItems
-
     //pending
 
     const AddToCart = async (selectedProduct) => {
@@ -56,12 +54,12 @@ const CartContext = ({ children }) => {
         await saveData(updatedCart)
     }
 
+    //removeItems
 
-    //remove from cart
-
-    const RemoveFromCart = (selectedProductID) => {
+    const RemoveFromCart = async (selectedProductID) => {
         const filtered = cartItems.filter(item => item.id !== selectedProductID)
         setCartItems(filtered)
+        await saveData(filtered)
     }
 
     //increase quantity

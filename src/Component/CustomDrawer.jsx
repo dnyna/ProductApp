@@ -21,7 +21,7 @@ const CustomDrawer = (props) => {
 
                 <View style={{ paddingTop: 10 }}>
                     <DrawerItemList {...props} />
-                </View>  
+                </View>
 
                 {/* underline */}
 
@@ -34,12 +34,12 @@ const CustomDrawer = (props) => {
                     <View style={styles.container}>
                         <Switch
                             trackColor={{ false: '#767577', true: '#81b0ff' }}
-                            thumbColor={mode ? '#f5dd4b' : '#f4f3f4'}
+                            thumbColor={mode ? '#0e0e0d' : '#f4f3f4'}
                             ios_backgroundColor="#3e3e3e"
                             onValueChange={ToggleTheme}
                             value={mode}
                             style={styles.switch}
-                            
+
                         />
                     </View>
                 </View>
@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
         fontWeight: Boldness.l,
         textAlign: 'center',
         paddingBottom: 20
-
 
     },
     logOutBtn: {

@@ -26,7 +26,7 @@ const CreateAccount = () => {
 
 
   const handleSignUp = async () => {
-    if (!user.trim() || !password.trim() || !confPassword.trim()) //.trim() is used for rrmoing extra space from staringand he end of the string
+    if (!user.trim() || !password.trim() || !confPassword.trim())//.trim() is used for rrmoing extra space from staringand he end of the string
     {
       Alert.alert('enter username and password')
       return

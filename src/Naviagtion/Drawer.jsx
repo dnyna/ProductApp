@@ -8,12 +8,12 @@ import HelpCenter from '../Screens/HelpCenter'
 import IonIcons from 'react-native-vector-icons/Ionicons'
 import CustomDrawer from '../Component/CustomDrawer'
 const Drawers = createDrawerNavigator();
-
+ 
 const Drawer = () => {
     return (
         <Drawers.Navigator drawerContent={props => <CustomDrawer {...props} />}>
             <Drawers.Screen name='Home' component={Home}
-                options={
+                options={ 
                     {
                         headerShown: false,
                         drawerIcon: ({ color }) => (

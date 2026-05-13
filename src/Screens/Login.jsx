@@ -10,6 +10,7 @@ import Borders from '../styles/Borders'
 import Radius from '../styles/Radius'
 import Margins from '../styles/margin'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import zIndex from '../styles/zIndex'
 const App = () => {
   const Navigation = useNavigation()
 
@@ -23,10 +24,9 @@ const App = () => {
   const getUserData = async () => {
     try {
       const data = await AsyncStorage.getItem('userData')
-      // console.log('data')
       if (data !== null) {
         const userData = JSON.parse(data)
-        console.log(userData)
+        console.log(userData, 'userData')
 
 
         if (user == userData.username && password == userData.password) {
@@ -48,6 +48,8 @@ const App = () => {
       console.log(error);
 
     }
+    setUser('')
+    setPassword('')
 
   }
   return (
@@ -135,7 +137,7 @@ const styles = StyleSheet.create({
   UserIcon: {
     position: 'absolute',
     left: Margins.marginForty,
-    top: 52,
+    top: Margins.smallMargin,
 
     zIndex: 1,
   },
@@ -182,7 +184,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    zIndex: 1
+    zIndex: zIndex.A
 
   },
   PasswordInput: {

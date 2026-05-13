@@ -33,10 +33,7 @@ const WishContext = ({ children }) => {
 
     }
 
-    const RemoveFromWishList = (selectedProduct) => {
-        const filtered = wishItems.filter(item => item.id !== selectedProduct)
-        setWishItems(filtered)
-    }
+
     //adding items toWishList
     const AddToWish = async (selectedProduct) => {
         const itemExits = wishItems.find(
@@ -46,19 +43,25 @@ const WishContext = ({ children }) => {
             const updatedItems = ([...wishItems, selectedProduct])
             setWishItems(updatedItems)
 
+            await saveLikedItems(updatedItems)
 
         }
-        await saveLikedItems(updatedItems)
     }
 
+    //remove items from wishlist
+    const RemoveFromWishList = async (selectedProduct) => {
+        const filtered = wishItems.filter(item => item.id !== selectedProduct)
+        setWishItems(filtered)
+        await saveLikedItems(filtered)
 
+    }
 
     return (
         <WishContextData.Provider
             value={{
                 AddToWish,
                 wishItems,
-                RemoveFromWishList, 
+                RemoveFromWishList,
             }}>
             {children}
         </WishContextData.Provider>

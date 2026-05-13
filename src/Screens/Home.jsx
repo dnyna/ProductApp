@@ -231,7 +231,7 @@ const Home = () => {
           renderItem={renderProducts}
           keyExtractor={(item) => item.id.toString()}
           numColumns={2}
-          showsVerticalScrollIndicator={true}
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.mainContainer}
           columnWrapperStyle={styles.columns}
           onRefresh={handleRefresh}
