@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import { FlatList, ScrollView, TextInput } from 'react-native-gesture-handler'
+import React, { useRef, useState } from 'react'
+// import axios from 'axios'
 import Padding from '../styles/Padding'
 import Borders from '../styles/Borders'
 import Radius from '../styles/Radius'
@@ -13,159 +13,152 @@ import Margins from '../styles/margin'
 const HepCenter = () => {
   // const [userChat, setUserChat] = useState(false)
 
-  // const [message, setMessage] = useState('')
-  const [chat, setChat] = ([
+  const [message, setMessage] = useState('')
+  const [chat, setChat] = useState([
     {
       id: 8,
       type: "bot",
-      questions: 'How can i help you?'
+      message: 'hello!!   How can i help you?'
     }
   ])
   // setChat(chat)
-  const sendMessage = (question) => {
-    let Botreply = ""
-    if (question === 'order') {
-      Botreply = "Your order will be deliverd within 3 - to4 days"
-    } else if (question === 'payment') {
-      Botreply = " please check your internet connection and the account balace too"
+
+  const flatListRef = useRef()
+  const getBotReply = (text) => {
+    const msg = text.toLowerCase()
+    if (msg.includes('order')) {
+      return "Your order will be deliverd within 3 to 4 days"
+    }
+    if (msg.includes('payment')) {
+      return " please check your internet connection and the account balace too"
     } else if (question === 'refund') {
-      Botreply = " refund will be credited to your account within 5 days"
+      return " Your refund will be credited to your account within 5 days"
     }
-    else if (question === 'delivery') {
-      Botreply = " sometime it is delayed because of hight volume."
+    if (msg.includes('delivery')) {
+      return " sometime it is delayed because of hight volume."
     }
-    else if (question === 'cancel') {
-      Botreply = " can cancel your order before it gets shipped, just click on cancel order."
+    if (msg.includes('cancel')) {
+      return " can cancel your order before it gets shipped, just click on cancel order."
     }
-    setChat(prev => [
-      ...prev, {
+    const sendMessages = () => {
+      if (message.trim() === "") return
+      const userMessage = {
+        id: Date.now(),
         type: 'user',
-        message: question,
-      },
-      {
-        type: 'bot',
-        message: Botreply
+
+        message: message
       }
-    ])
+      setChat(prev => [...prev, userMessage])
+      const userText = message
+
+      setMessage("")
+      setTimeout(() => {
+        const botMessage = {
+          id: Date.now() + 1,
+          type: 'bot',
+          message: getBotReply(userText)
+        }
+        setChat(prev => [...prev,
+          botMessage])
+      }, 2000)
+    }
+
+
+
+    return (
+      // <View style={{ paddingTop: 60, }}>
+
+      //   <View style={{ marginLeft: 16, borderWidth: Borders.s, borderRadius: Radius.XXXXL, width: Sizes.SizeOEF, padding: Padding.ss, backgroundColor: '#ddf9f3' }}>
+      //     <Text style={{ textAlign: 'center', fontWeight: 'bold' }}> How can I help you ?</Text>
+      //   </View>
+      //   <View style={{ flexDirection: 'row', gap: 6, paddingTop: 20, paddingLeft: 16 }}>
+      //     <TouchableOpacity style={styles.issues} onPress={() => sendMessage("order")}>
+      //       <Text style={styles.txts}>order</Text>
+      //     </TouchableOpacity>
+      //     <TouchableOpacity style={styles.issues} onPress={() => sendMessage("payment")}>
+      //       <Text style={styles.txts}>payment</Text>
+      //     </TouchableOpacity>
+      //     <TouchableOpacity style={styles.issues} onPress={() => sendMessage("refund")}>
+      //       <Text style={styles.txts}>refund</Text>
+      //     </TouchableOpacity>
+      //     <TouchableOpacity style={styles.issues} onPress={() => sendMessage("delivery")}>
+      //       <Text style={styles.txts}>delivery</Text>
+      //     </TouchableOpacity>
+      //     <TouchableOpacity style={styles.issues} onPress={() => sendMessage("cancel")}>
+      //       <Text style={styles.txts}>cancel Order</Text>
+      //     </TouchableOpacity>
+      //   </View>
+      //   <ScrollView contentContainerStyle={styles.scrollContainer}>
+      //     {
+      //       chat.map((item, index) => (
+      //         <View key={index} style={styles.chats}>
+      //           <Text>
+      //             {item.message}
+      //           </Text>
+      //         </View>
+      //       )
+
+      //       )
+      //     }
+
+
+      //   </ScrollView>
+      // </View>
+      <View style={styles.container}>
+        <FlatList
+          ref={flatListRef}
+          data={chat}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <View
+              style={[
+                styles.messageBox,
+                item.type === 'user' ? styles.userMessage : styles.botMessage]}>
+              <Text style={styles.messageTxt}>
+                {item.message}
+              </Text>
+            </View>
+          )}
+        />
+        <View>
+          <TextInput
+            placeholder='type message'
+            value={message}
+            onChangeText={setMessage}
+            style={{ borderWidth: 1, marginRight: 30, borderRadius: 8 }}
+          />
+          <TouchableOpacity onPress={sendMessages} style={{ position: 'absolute', right: 50, top: 10, }}>
+            <Text style={{ color: 'blue' }}>Send</Text>
+          </ TouchableOpacity>
+        </View>
+      </View>
+
+    )
   }
-
-
-  return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
-      {
-        chat.map((item, index) => (
-          <View key={index} style={styles.chats}>
-            <Text>
-              {item.message}
-            </Text>
-          </View>
-        )
-
-        )
-      }
-      {/* <View style={{ paddingLeft: Padding.m, borderBottomWidth: Borders.exsmall, borderColor: '#bc737f ' }}>
-        <Text style={styles.HelpCentTxt}> Help Center ??</Text>
-      </View> */}
-      <View style={{ borderWidth: Borders.s, borderRadius: Radius.XXXXL, width: Sizes.SizeOEF, padding: Padding.ss, backgroundColor: '#ddf9f3' }}>
-        <Text style={{ textAlign: 'center', fontWeight: 'bold' }}> How can I help you ?</Text>
-      </View>
-      <View style={{ flexDirection: 'row', gap: 6, }}>
-        <TouchableOpacity style={styles.issues} onPress={() => sendMessage("order")}>
-          <Text style={styles.txts}>order</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.issues} onPress={() => sendMessage("payment")}>
-          <Text style={styles.txts}>payment</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.issues} onPress={() => sendMessage("refund")}>
-          <Text style={styles.txts}>refund</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.issues} onPress={() => sendMessage("delivery")}>
-          <Text style={styles.txts}>delivery</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.issues} onPress={() => sendMessage("cancel")}>
-          <Text style={styles.txts}>cancel Order</Text>
-        </TouchableOpacity>
-      </View>
-
-
-      {/* <View style={styles.userChats}>
-        <Text style={styles.quesion}>user:  where is my order?</Text>
-      </View>
-
-      <View style={styles.chats}>
-        <Text style={styles.answer}>Bot  :  Your order will be deliverd within 3-to4 days</Text>
-      </View>
-
-
-      <View style={styles.userChats}>
-        <Text style={styles.quesion}>user:  payment failed issue?</Text>
-      </View>
-
-      <View style={styles.chats}>
-        <Text style={styles.answer}>Bot  :  please check your internet connection and the account balace too.</Text>
-      </View>
-
-
-      <View style={styles.userChats}>
-        <Text style={styles.quesion}>user:  when will I get refund?</Text>
-      </View>
-
-      <View style={styles.chats}>
-        <Text style={styles.answer}>Bot  :  refund will be credited to your account within 5 days.</Text>
-      </View>
-
-
-      <View style={styles.userChats}>
-        <Text style={styles.quesion}>user:  delivery taking too long?</Text>
-      </View>
-
-      <View style={styles.chats}>
-        <Text style={styles.answer}>Bot  :  sometime it is delayed because of hight volume.</Text>
-      </View>
-
-
-      <View style={styles.userChats}>
-        <Text style={styles.quesion}>user:  how can i cancel order?</Text>
-      </View>
-
-      <View style={styles.chats}>
-        <Text style={styles.answer}>Bot  :  can cancel your order before it gets shipped, just click on cancel order.</Text>
-      </View>
-
-      <View style={styles.chats}>
-        <Text style={styles.answer}>Bot  :  Thank you!! Never come back here😠</Text>
-      </View> */}
-
-
-    </ScrollView>
-
-  )
 }
 
 export default HepCenter
 
 const styles = StyleSheet.create({
-  scrollContainer: {
-    paddingTop: Padding.Xl,
-    gap: 25,
-    paddingLeft: Padding.smallOne,
-    paddingRight: Padding.smallOne,
-    paddingBottom: Padding.m,
-    backgroundColor: '#eefafa'
+  container: {
+    // paddingTop: Padding.Xl,
+    // gap: 25,
+    // paddingLeft: Padding.smallOne,
+    // paddingRight: Padding.smallOne,
+    // paddingBottom: 100,
+    // backgroundColor: '#eefafa'
+    flex: 1
   },
-  HelpCentTxt: {
+  messageBox: {
     fontSize: Sizes.M,
     fontWeight: Boldness.l,
-    marginBottom: Margins.smallMarginTwenty
+    padding: 12,
+    marginVertical: 5
   },
 
-  issues: {
-    borderWidth: Borders.s,
-    borderRadius: Radius.L,
-    padding: Padding.small,
-    borderBlockStartColor: '#bc737f',
-    borderBlockEndColor: '#bc737f',
-
+  messageTxt: {
+    alignSelf: 'flex-end',
+    color:'black'
   },
 
   txts: {
