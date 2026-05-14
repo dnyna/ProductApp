@@ -1,17 +1,16 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { FlatList, ScrollView, TextInput } from 'react-native-gesture-handler'
+import { FlatList, TextInput } from 'react-native-gesture-handler'
 import React, { useRef, useState } from 'react'
 // import axios from 'axios'
-import Padding from '../styles/Padding'
-import Borders from '../styles/Borders'
-import Radius from '../styles/Radius'
-import Sizes from '../styles/Sizes'
-import Boldness from '../styles/Boldness'
-import Margins from '../styles/margin'
+// import Padding from '../styles/Padding'
+// import Borders from '../styles/Borders'
+// import Radius from '../styles/Radius'
+// import Sizes from '../styles/Sizes'
+// import Boldness from '../styles/Boldness'
+// import Margins from '../styles/margin'
 
 
-const HepCenter = () => {
-  // const [userChat, setUserChat] = useState(false)
+const HelpCenter = () => {
 
   const [message, setMessage] = useState('')
   const [chat, setChat] = useState([
@@ -31,7 +30,7 @@ const HepCenter = () => {
     }
     if (msg.includes('payment')) {
       return " please check your internet connection and the account balace too"
-    } else if (question === 'refund') {
+    } if (msg.includes('refund')) {
       return " Your refund will be credited to your account within 5 days"
     }
     if (msg.includes('delivery')) {
@@ -137,7 +136,7 @@ const HepCenter = () => {
   }
 }
 
-export default HepCenter
+export default HelpCenter
 
 const styles = StyleSheet.create({
   container: {
@@ -147,40 +146,26 @@ const styles = StyleSheet.create({
     // paddingRight: Padding.smallOne,
     // paddingBottom: 100,
     // backgroundColor: '#eefafa'
-    flex: 1
+    // flex: 1,
+
   },
   messageBox: {
-    fontSize: Sizes.M,
-    fontWeight: Boldness.l,
-    padding: 12,
+    maxWidth: '75%',
+    borderRadius: 12,
     marginVertical: 5
   },
 
   messageTxt: {
     alignSelf: 'flex-end',
-    color:'black'
+    color: 'black'
+  },
+  userMessage: {
+    alignSelf: 'flex-end'
+  },
+  botMessage: {
+    alignSelf: 'flex-start'
   },
 
-  txts: {
-    fontSize: Sizes.m,
-    fontWeight: Boldness.M,
-    color: '#625e5e'
-  },
-
-  userChats: {
-    borderWidth: Borders.exsmall,
-    borderRadius: Radius.XXXXL,
-    width: Sizes.largeTOS,
-    padding: Padding.ss,
-    backgroundColor: '#f8fffd'
-  },
-  chats: {
-    borderWidth: Borders.exsmall,
-    borderRadius: Radius.XXXXL,
-    width: Sizes.largeTOS,
-    padding: Padding.ss,
-    backgroundColor: '#f8fffd'
-  }
 
 
 })

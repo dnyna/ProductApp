@@ -7,6 +7,7 @@ import WishList from '../Screens/WishList'
 import HelpCenter from '../Screens/HelpCenter'
 import IonIcons from 'react-native-vector-icons/Ionicons'
 import CustomDrawer from '../Component/CustomDrawer'
+import { NavigationContainer } from '@react-navigation/native'
 const Drawers = createDrawerNavigator();
  
 const Drawer = () => {
@@ -42,7 +43,7 @@ const Drawer = () => {
                     }
                 } />
 
-            <Drawers.Screen name='HelpCenter' component={HelpCenter}
+            <Drawers.Screen name='HelpCenter' component={HelpCenter} 
                 options={
                     {
                         headerShown: false,
