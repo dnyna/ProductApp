@@ -1,16 +1,19 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { FlatList, TextInput } from 'react-native-gesture-handler'
+import { FlatList, TextInput } from 'react-native'
 import React, { useRef, useState } from 'react'
-// import axios from 'axios'
-// import Padding from '../styles/Padding'
-// import Borders from '../styles/Borders'
-// import Radius from '../styles/Radius'
-// import Sizes from '../styles/Sizes'
-// import Boldness from '../styles/Boldness'
-// import Margins from '../styles/margin'
-
+import axios from 'axios'
+import Padding from '../styles/Padding'
+import Borders from '../styles/Borders'
+import Radius from '../styles/Radius'
+import Sizes from '../styles/Sizes'
+import Boldness from '../styles/Boldness'
+import Margins from '../styles/margin'
+import { useContext } from 'react'
+import { ThemeToggleContex } from '../Context/ThemeContext'
 
 const HelpCenter = () => {
+  const { Theme } = useContext(ThemeToggleContex)
+
 
   const [message, setMessage] = useState('')
   const [chat, setChat] = useState([
@@ -39,133 +42,148 @@ const HelpCenter = () => {
     if (msg.includes('cancel')) {
       return " can cancel your order before it gets shipped, just click on cancel order."
     }
-    const sendMessages = () => {
-      if (message.trim() === "") return
-      const userMessage = {
-        id: Date.now(),
-        type: 'user',
-
-        message: message
-      }
-      setChat(prev => [...prev, userMessage])
-      const userText = message
-
-      setMessage("")
-      setTimeout(() => {
-        const botMessage = {
-          id: Date.now() + 1,
-          type: 'bot',
-          message: getBotReply(userText)
-        }
-        setChat(prev => [...prev,
-          botMessage])
-      }, 2000)
-    }
-
-
-
-    return (
-      // <View style={{ paddingTop: 60, }}>
-
-      //   <View style={{ marginLeft: 16, borderWidth: Borders.s, borderRadius: Radius.XXXXL, width: Sizes.SizeOEF, padding: Padding.ss, backgroundColor: '#ddf9f3' }}>
-      //     <Text style={{ textAlign: 'center', fontWeight: 'bold' }}> How can I help you ?</Text>
-      //   </View>
-      //   <View style={{ flexDirection: 'row', gap: 6, paddingTop: 20, paddingLeft: 16 }}>
-      //     <TouchableOpacity style={styles.issues} onPress={() => sendMessage("order")}>
-      //       <Text style={styles.txts}>order</Text>
-      //     </TouchableOpacity>
-      //     <TouchableOpacity style={styles.issues} onPress={() => sendMessage("payment")}>
-      //       <Text style={styles.txts}>payment</Text>
-      //     </TouchableOpacity>
-      //     <TouchableOpacity style={styles.issues} onPress={() => sendMessage("refund")}>
-      //       <Text style={styles.txts}>refund</Text>
-      //     </TouchableOpacity>
-      //     <TouchableOpacity style={styles.issues} onPress={() => sendMessage("delivery")}>
-      //       <Text style={styles.txts}>delivery</Text>
-      //     </TouchableOpacity>
-      //     <TouchableOpacity style={styles.issues} onPress={() => sendMessage("cancel")}>
-      //       <Text style={styles.txts}>cancel Order</Text>
-      //     </TouchableOpacity>
-      //   </View>
-      //   <ScrollView contentContainerStyle={styles.scrollContainer}>
-      //     {
-      //       chat.map((item, index) => (
-      //         <View key={index} style={styles.chats}>
-      //           <Text>
-      //             {item.message}
-      //           </Text>
-      //         </View>
-      //       )
-
-      //       )
-      //     }
-
-
-      //   </ScrollView>
-      // </View>
-      <View style={styles.container}>
-        <FlatList
-          ref={flatListRef}
-          data={chat}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <View
-              style={[
-                styles.messageBox,
-                item.type === 'user' ? styles.userMessage : styles.botMessage]}>
-              <Text style={styles.messageTxt}>
-                {item.message}
-              </Text>
-            </View>
-          )}
-        />
-        <View>
-          <TextInput
-            placeholder='type message'
-            value={message}
-            onChangeText={setMessage}
-            style={{ borderWidth: 1, marginRight: 30, borderRadius: 8 }}
-          />
-          <TouchableOpacity onPress={sendMessages} style={{ position: 'absolute', right: 50, top: 10, }}>
-            <Text style={{ color: 'blue' }}>Send</Text>
-          </ TouchableOpacity>
-        </View>
-      </View>
-
-    )
+    return "Sorry, I didn't understand"
   }
+
+  const sendMessages = () => {
+    if (message.trim() === "") return
+    const userMessage = {
+      id: Date.now(),
+      type: 'user',
+      message: message,
+      createdAt: Date.now()
+    }
+    setChat(prev => [...prev, userMessage])
+    const userText = message
+
+    setMessage("")
+    setTimeout(() => {
+      const botMessage = {
+        id: Date.now() + 1,
+        type: 'bot',
+        message: getBotReply(userText)
+      }
+      setChat(prev => [...prev,
+        botMessage])
+    }, 1000)
+  }
+
+
+
+  return (
+    // <View style={{ paddingTop: 60, }}>
+
+    //   <View style={{ marginLeft: 16, borderWidth: Borders.s, borderRadius: Radius.XXXXL, width: Sizes.SizeOEF, padding: Padding.ss, backgroundColor: '#ddf9f3' }}>
+    //     <Text style={{ textAlign: 'center', fontWeight: 'bold' }}> How can I help you ?</Text>
+    //   </View>
+    //   <View style={{ flexDirection: 'row', gap: 6, paddingTop: 20, paddingLeft: 16 }}>
+    //     <TouchableOpacity style={styles.issues} onPress={() => sendMessage("order")}>
+    //       <Text style={styles.txts}>order</Text>
+    //     </TouchableOpacity>
+    //     <TouchableOpacity style={styles.issues} onPress={() => sendMessage("payment")}>
+    //       <Text style={styles.txts}>payment</Text>
+    //     </TouchableOpacity>
+    //     <TouchableOpacity style={styles.issues} onPress={() => sendMessage("refund")}>
+    //       <Text style={styles.txts}>refund</Text>
+    //     </TouchableOpacity>
+    //     <TouchableOpacity style={styles.issues} onPress={() => sendMessage("delivery")}>
+    //       <Text style={styles.txts}>delivery</Text>
+    //     </TouchableOpacity>
+    //     <TouchableOpacity style={styles.issues} onPress={() => sendMessage("cancel")}>
+    //       <Text style={styles.txts}>cancel Order</Text>
+    //     </TouchableOpacity>
+    //   </View>
+    //   <ScrollView contentContainerStyle={styles.scrollContainer}>
+    //     {
+    //       chat.map((item, index) => (
+    //         <View key={index} style={styles.chats}>
+    //           <Text>
+    //             {item.message}
+    //           </Text>
+    //         </View>
+    //       )
+
+    //       )
+    //     }
+
+
+    //   </ScrollView>
+    // </View>
+    <View style={[styles.container, { backgroundColor: Theme.backgroundColor }]}>
+      <FlatList
+        ref={flatListRef}
+        data={chat}
+        keyExtractor={(item) => item.id.toString()}
+        onContentSizeChange={() => flatListRef.current.scrollToEnd({ animated: true })}
+        renderItem={({ item }) => (
+          <View
+            style={[
+              styles.messageBox,
+              item.type === 'user' ? styles.userMessage : styles.botMessage, { backgroundColor: Theme.backgroundColor }]}>
+            <Text style={[styles.messageTxt, { color: Theme.color, borderColor: Theme.color }]}>
+              {item.message}
+            </Text>
+          </View>
+        )}
+      />
+      <View style={{ paddingBottom: 20 }}>
+        <TextInput
+          placeholder='type message.....'
+          placeholderTextColor={'grey'}
+          value={message}
+          onChangeText={setMessage}
+          style={[styles.typeInput, { backgroundColor: Theme.backgroundColor, color: Theme.color, borderColor: Theme.color, }]}
+
+        />
+        <TouchableOpacity onPress={sendMessages} style={{ position: 'absolute', right: 30, top: 10, }}>
+          <Text style={[styles.sendTxt, { color: Theme.color }]}>Send</Text>
+        </ TouchableOpacity>
+      </View>
+    </View>
+
+  )
 }
+
 
 export default HelpCenter
 
 const styles = StyleSheet.create({
   container: {
-    // paddingTop: Padding.Xl,
-    // gap: 25,
-    // paddingLeft: Padding.smallOne,
-    // paddingRight: Padding.smallOne,
-    // paddingBottom: 100,
-    // backgroundColor: '#eefafa'
-    // flex: 1,
+    paddingTop: Padding.Xl,
+    gap: 25,
+    paddingLeft: Padding.smallOne,
+    paddingRight: Padding.smallOne,
+    backgroundColor: '#eefafa',
+    flex: 1,
 
   },
   messageBox: {
     maxWidth: '75%',
     borderRadius: 12,
-    marginVertical: 5
+    marginVertical: 5,
+    paddingVertical: 5,
+    borderRadius: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: '#3c7e53'
   },
-
   messageTxt: {
-    alignSelf: 'flex-end',
-    color: 'black'
+    fontSize: 15,
+    fontWeight: 600,
+    color: 'white',
+    fontStyle: 'italic'
   },
   userMessage: {
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
+    borderWidth: 1
   },
   botMessage: {
     alignSelf: 'flex-start'
   },
 
+  typeInput: { borderWidth: 1, borderRadius: 10, paddingLeft: 20, backgroundColor: 'white' },
+
+  sendTxt: { color: 'blue', fontWeight: '700' }
 
 
 })

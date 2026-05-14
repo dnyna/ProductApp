@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image, Alert } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import Color from '../styles/Colors'
 import Sizes from '../../src/styles/Sizes'
 import Margins from '../styles/margin'
@@ -11,9 +11,11 @@ import { useNavigation } from '@react-navigation/native'
 import Padding from '../styles/Padding'
 import { useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { ThemeToggleContex } from '../Context/ThemeContext'
 
 
 const CreateAccount = () => {
+  const {Theme}= useContext(ThemeToggleContex)
   const Navigation = useNavigation()
   const GoogleImg = require('../Assets/Buttons.png')
   const Lock = require('../Assets/lock.png')
@@ -58,10 +60,10 @@ const CreateAccount = () => {
 
   }
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,{backgroundColor:Theme.backgroundColor}]}>
 
       <View style={styles.welcomWrapper}>
-        <Text style={styles.welcome}>Create an           account
+        <Text style={[styles.welcome, {color:Theme.color}]}>Create an           account
         </Text>
       </View>
 
@@ -83,7 +85,7 @@ const CreateAccount = () => {
           <Image source={Eye} style={styles.ShowHideIcon} />
         </View>
 
-        <Text style={styles.registerTxt}>By clicking the Register button, you agree                            to the public offer</Text>
+        <Text style={[styles.registerTxt, {color:Theme.color}]}>By clicking the Register button, you agree                            to the public offer</Text>
 
       </View>
 
@@ -99,14 +101,14 @@ const CreateAccount = () => {
 
       <View style={styles.ContinueWithContainer}>
         <View style={styles.contnueWith}>
-          <Text style={styles.ContinueWithTxt}>- OR Continue with -</Text>
+          <Text style={[styles.ContinueWithTxt,{color:Theme.color}]}>- OR Continue with -</Text>
 
           <View style={styles.footerButton}>
             <Image source={GoogleImg} />
           </View>
           <View style={styles.alereadyAxccTxtWrapper}>
 
-            <Text style={styles.alereadyAxccTxt}> I have already an account  </Text>
+            <Text style={[styles.alereadyAxccTxt,{color:Theme.color}]}> I have already an account  </Text>
 
             <TouchableOpacity onPress={() => Navigation.navigate('Login')}>
               <Text style={styles.LogIn}>Login</Text>

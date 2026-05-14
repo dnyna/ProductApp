@@ -7,7 +7,12 @@ import Radius from '../styles/Radius'
 import Boldness from '../styles/Boldness'
 import Gaps from '../styles/Gap'
 import Margins from '../styles/margin'
+import { useContext } from 'react'
+import { ThemeToggleContex } from '../Context/ThemeContext'
 const Categories = ({ onSelectCategory, onSort }) => {
+
+    const { Theme, GreyTheme } = useContext(ThemeToggleContex)
+
     const [showFilter, setShowFilter] = useState(false)  //used this for show and hide the modal
 
     //all images declared here
@@ -21,8 +26,8 @@ const Categories = ({ onSelectCategory, onSort }) => {
         <View>
             {/* Header */}
 
-            <View style={styles.Home}>
-                <Text style={styles.heading}>All Featured</Text>
+            <View style={[styles.Home, { backgroundColor: GreyTheme.backgroundColor }]}>
+                <Text style={[styles.heading, { color: Theme.color }]}>All Featured</Text>
 
                 {/* Sort */}
 
@@ -46,25 +51,25 @@ const Categories = ({ onSelectCategory, onSort }) => {
 
             {/* Categories */}
 
-            <View style={styles.categoryContainer}>
+            <View style={[styles.categoryContainer, { backgroundColor: Theme.backgroundColor }]}>
                 <TouchableOpacity onPress={() => onSelectCategory('jewelery')}>
                     <Image source={SecondImg} />
-                    <Text style={styles.catText}>jewelery</Text>
+                    <Text style={[styles.catText, { color: Theme.color }]}>jewelery</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => onSelectCategory('electronics')}>
                     <Image source={ThirdImg} />
-                    <Text style={styles.catText}>electro</Text>
+                    <Text style={[styles.catText, { color: Theme.color }]}>electro</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => onSelectCategory("men's clothing")}>
                     <Image source={FourthImg} />
-                    <Text style={styles.catText}>Mens</Text>
+                    <Text style={[styles.catText, { color: Theme.color }]}>Mens</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => onSelectCategory("women's clothing")}>
                     <Image source={ThirdImg} />
-                    <Text style={styles.catText}>Womens</Text>
+                    <Text style={[styles.catText, { color: Theme.color }]}>Womens</Text>
                 </TouchableOpacity>
 
             </View>

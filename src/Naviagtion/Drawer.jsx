@@ -1,5 +1,5 @@
 import { Text, View } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import Home from '../Screens/Home'
 import Cart from '../Screens/Cart'
@@ -7,14 +7,29 @@ import WishList from '../Screens/WishList'
 import HelpCenter from '../Screens/HelpCenter'
 import IonIcons from 'react-native-vector-icons/Ionicons'
 import CustomDrawer from '../Component/CustomDrawer'
-import { NavigationContainer } from '@react-navigation/native'
+import { ThemeToggleContex } from '../Context/ThemeContext'
 const Drawers = createDrawerNavigator();
- 
+
 const Drawer = () => {
+    const { Theme, mode } = useContext(ThemeToggleContex)
     return (
-        <Drawers.Navigator drawerContent={props => <CustomDrawer {...props} />}>
+        <Drawers.Navigator drawerContent={props => <CustomDrawer {...props} />}
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: Theme.color
+                },
+                headerTintColor: Theme.color,
+                drawerStyle: {
+                    backgroundColor: Theme.color
+                }, drawerLabelStyle: {
+                    color: Theme.color
+                },
+                drawerActiveTintColor: mode ? 'white' : 'black',
+                drawerInactiveTintColor: mode ? 'white' : 'black'
+            }}
+        >
             <Drawers.Screen name='Home' component={Home}
-                options={ 
+                options={
                     {
                         headerShown: false,
                         drawerIcon: ({ color }) => (
@@ -43,7 +58,7 @@ const Drawer = () => {
                     }
                 } />
 
-            <Drawers.Screen name='HelpCenter' component={HelpCenter} 
+            <Drawers.Screen name='HelpCenter' component={HelpCenter}
                 options={
                     {
                         headerShown: false,

@@ -11,6 +11,7 @@ import Borders from '../styles/Borders';
 import Radius from '../styles/Radius';
 import Gaps from '../styles/Gap';
 import PaymentModal from '../Component/PaymentModal'
+import { ThemeToggleContex } from '../Context/ThemeContext';
 // import AsyncStorage from '@react-native-async-storage/async-storage'
 const Cart = () => {
   const Navigation = useNavigation()
@@ -19,7 +20,7 @@ const Cart = () => {
   const favourite = require('../Assets/favourite.png')
   const ProceedPaymet = require('../Assets/ProdeedPayment.png')
 
-
+  const { Theme, GreyTheme } = useContext(ThemeToggleContex)
   //used this to count price with quantity
 
   const { cartItems } = useContext(CartContextData)
@@ -34,35 +35,35 @@ const Cart = () => {
 
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: GreyTheme.backgroundColor }]}>
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => Navigation.goBack()}>
           <Image source={BackArrow} style={styles.backArrow} />
         </TouchableOpacity>
-        <Text style={styles.ShppingBag}>Shopping Bag</Text>
-        <TouchableOpacity style={styles.fav} onPress={()=>Navigation.navigate('WishList')}>
-          <Image source={favourite} />
+        <Text style={[styles.ShppingBag, {color:Theme.color}]}>Shopping Bag</Text>
+        <TouchableOpacity style={styles.fav} onPress={() => Navigation.navigate('WishList')}>
+          <Image source={favourite}  />
         </TouchableOpacity>
       </View>
 
       <ScrollView>
         {cartItems.map((item, idx) => (
-          <View key={idx} style={styles.mapView}>
+          <View key={idx} style={[styles.mapView, { backgroundColor: Theme.backgroundColor }]}>
             <View key={item.id} style={styles.product}>
               <Image source={{ uri: item.image }} style={styles.productImage} />
               <View style={styles.textProduct}>
                 <View style={styles.catDelWrapper}>
-                  <Text style={styles.category}>{item.category}</Text>
+                  <Text style={[styles.category, { color: Theme.color }]}>{item.category}</Text>
 
                 </View>
-                <Text style={styles.title} numberOfLines={4} ellipsizeMode='tail'>{item.title}</Text>
+                <Text style={[styles.title, { color: Theme.color }]} numberOfLines={4} ellipsizeMode='tail'>{item.title}</Text>
 
                 <View style={styles.qtyIncDecWrapper}>
-                  <Text style={styles.txtFont}>Qty:</Text>
+                  <Text style={[styles.txtFont, {color:Theme.color}]}>Qty:</Text>
                   <View style={styles.incDecQty}>
                     <TouchableOpacity onPress={() => DecreaseQty(item.id)}><Text style={styles.txtFont}>-</Text></TouchableOpacity>
-                    <Text style={styles.txtFont}>{item.quantity}</Text>
+                    <Text style={[styles.txtFont, { color: Theme.color }]}>{item.quantity}</Text>
                     <TouchableOpacity onPress={() => IncreaseQty(item.id)}><Text style={styles.txtFont}>+</Text></TouchableOpacity>
                   </View>
                   <TouchableOpacity onPress={() => RemoveFromCart(item.id)} >
@@ -70,8 +71,8 @@ const Cart = () => {
                   </TouchableOpacity>
                 </View>
 
-                <Text style={styles.pricing}>Price : ₹{item.price.toFixed(0) * item.quantity} </Text>
-                <Text style={styles.deliveryDate}>Delivery by </Text>
+                <Text style={[styles.pricing, {color:Theme.color}]}>Price : ₹{item.price.toFixed(0) * item.quantity} </Text>
+                <Text style={[styles.deliveryDate,{color:Theme.color}]}>Delivery by </Text>
               </View>
             </View>
           </View>
@@ -80,33 +81,33 @@ const Cart = () => {
 
         <View style={styles.mainOrderView}>
 
-          <Text style={styles.orderDetailTxt}>Order Payment Details</Text>
+          <Text style={[styles.orderDetailTxt, {color:Theme.color}]}>Order Payment Details</Text>
           <View style={styles.OrderAmnt}>
-            <Text>Order Amounts</Text>
-            <Text>₹{TotalPrice.toFixed(0)}</Text>
+            <Text style={[{color:Theme.color}]}>Order Amounts</Text>
+            <Text style={[{color:Theme.color}]}>₹{TotalPrice.toFixed(0)}</Text>
           </View>
 
           <View style={styles.coupon}>
-            <Text style={styles.conveniencetxt}>Convenience</Text>
+            <Text style={[styles.conveniencetxt,{color:Theme.color}]}>Convenience</Text>
             <TouchableOpacity><Text style={{ color: Color.buttonColor }}>Know more</Text></TouchableOpacity>
             <TouchableOpacity>
               <Text style={styles.AplyCupn}>Apply Coupon</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.deliveryFree}>
-            <Text>Delivery Free</Text>
-            <Text style={styles.freeTxt}>free</Text>
+            <Text style={[{color:Theme.color}]}s>Delivery Free</Text>
+            <Text style={[styles.freeTxt, {color:Theme.color}]}>free</Text>
           </View>
 
         </View>
       </ScrollView>
 
-      <View style={styles.ProceedPayments}>
+      <View style={[styles.ProceedPayments,{backgroundColor:Theme.backgroundColor}]}>
         {/* <Text>Total: ₹{item.price * item.quantity}</Text> */}
         <View style={styles.ViewDetailsWrapper}>
 
           <View style={styles.ViewDtls}>
-            <Text>₹{TotalPrice.toFixed(0)}</Text>
+            <Text style={[{color:Theme.color}]}>₹{TotalPrice.toFixed(0)}</Text>
             <Text style={styles.detailTxt}>View Details</Text>
           </View>
           <TouchableOpacity onPress={() => setShowModal(true)} >

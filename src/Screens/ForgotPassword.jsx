@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import Sizes from '../styles/Sizes'
 import Margins from '../styles/margin'
 import Color from '../styles/Colors'
@@ -7,15 +7,16 @@ import Boldness from '../styles/Boldness'
 import Borders from '../styles/Borders'
 import Radius from '../styles/Radius'
 import Padding from '../styles/Padding'
+import { ThemeToggleContex } from '../Context/ThemeContext'
 
 const ForgotPassword = () => {
-
+  const{Theme}= useContext(ThemeToggleContex)
   const MailIcon = require('../Assets/Mail.png')
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,{backgroundColor:Theme.backgroundColor}]}>
       <View style={styles.ForgotView}>
         <Image source={MailIcon} style={styles.mailIcon} />
-        <Text style={styles.forgotTxt}>Forgot{'           '}Password?</Text>
+        <Text style={[styles.forgotTxt,{color:Theme.color}]}>Forgot{'           '}Password?</Text>
         <View style={styles.TxtInputWrapper}>
           <TextInput
             placeholder='Enter your email address'
@@ -24,12 +25,12 @@ const ForgotPassword = () => {
           />
         </View>
 
-        <Text style={styles.txt}>* We will send you a message to set or reset                                               your new password</Text>
+        <Text style={[styles.txt,{color:Theme.color}]}>* We will send you a message to set or reset                                               your new password</Text>
       </View>
       <View>
 
       </View>
-      <View style={styles.SubmitView}>
+      <View style={[styles.SubmitView, {backgroundColor:Theme.backgroundColor}]}>
         <TouchableOpacity style={styles.submit}>
 
           <Text style={styles.SubmitTxt}>Submit</Text>

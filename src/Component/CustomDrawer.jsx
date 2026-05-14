@@ -12,12 +12,11 @@ const CustomDrawer = (props) => {
     const { mode, Theme, ToggleTheme } = useContext(ThemeToggleContex)
 
     return (
-        <View style={styles.containerFirst}>
-            <DrawerContentScrollView {...props}
-                contentContainerStyle={{}}>
+        <View style={[styles.containerFirst, {backgroundColor:Theme.backgroundColor}]}>
+            <DrawerContentScrollView {...props}>
                 <Image source={require('../Assets/Profile.png')} style={styles.profileImg} />
-                <Text style={styles.txt}>Dany</Text>
-                <Text style={styles.txtCoin}>1230 Coins</Text>
+                <Text style={[styles.txt,{color:Theme.color}]}>Dany</Text>
+                <Text style={[styles.txtCoin,{color:Theme.color}]}>1230 Coins</Text>
 
                 <View style={{ paddingTop: 10 }}>
                     <DrawerItemList {...props} />
@@ -25,12 +24,12 @@ const CustomDrawer = (props) => {
 
                 {/* underline */}
 
-                <View style={{ borderBottomWidth: 1, }}></View>
+                <View style={{ borderBottomWidth: 1,borderColor:'#9c1919' }}></View>
 
                 {/* Switch */}
 
                 <View style={{ flexDirection: 'row', paddingTop: 30 }}>
-                    <Text style={styles.darkThemeTxt}>Dark Theme</Text>
+                    <Text style={[styles.darkThemeTxt,{color:Theme.color}]}>Dark Theme</Text>
                     <View style={styles.container}>
                         <Switch
                             trackColor={{ false: '#767577', true: '#81b0ff' }}
@@ -44,9 +43,9 @@ const CustomDrawer = (props) => {
                     </View>
                 </View>
             </DrawerContentScrollView>
-            <TouchableOpacity onPress={() => Navigation.navigate('CreateAccount')} style={styles.logOutBtn}>
-                <Text style={styles.BtnTxt}>LogOut</Text>
-                <Ionicons name='log-out-outline' size={20} />
+            <TouchableOpacity onPress={() => Navigation.navigate('CreateAccount')} style={[styles.logOutBtn,{color:Theme.color}]}>
+                <Text style={[styles.BtnTxt,{color:Theme.color}]}>LogOut</Text>
+                <Ionicons name='log-out-outline' size={20}color={Theme.color} />
             </TouchableOpacity>
         </View>
 

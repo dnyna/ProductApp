@@ -16,7 +16,9 @@ import Color from '../styles/Colors'
 import Gaps from '../styles/Gap'
 import { micEvents, SpeechToText } from 'react-native-speech-convertor';
 import { WishContextData } from '../Context/WishListContext'
+import { ThemeToggleContex } from '../Context/ThemeContext'
 const Home = () => {
+
 
   const Navigation = useNavigation() //used for screen Navigation one of the hook
   const mike = require('../Assets/mike.png')
@@ -33,6 +35,9 @@ const Home = () => {
   const { AddToWish } = useContext(WishContextData)
   const { RemoveFromWishList } = useContext(WishContextData)
 
+  //contextTheme
+
+  const { Theme,GreyTheme } = useContext(ThemeToggleContex)
   // Listen for recognized speech results
   useEffect(() => {
     const resultListener = micEvents.addListener('onSpeechResult', (searchProduct) => {
@@ -141,7 +146,7 @@ const Home = () => {
   // renders Product #cart
   const renderProducts = ({ item }) => (
     <TouchableOpacity
-      style={styles.cart}
+      style={[styles.cart, { backgroundColor: Theme.backgroundColor }]}
       onPress={() =>
         Navigation.navigate('ShopPage', { selctedProduct: item })
       }
@@ -150,22 +155,22 @@ const Home = () => {
         <Image source={{ uri: item.image }} style={styles.productImage} />
 
         <View style={styles.renderProducts}>
-          <Text numberOfLines={1} style={styles.title}>
+          <Text numberOfLines={1} style={[styles.title, { color: Theme.color }]}>
             {item.title}
           </Text>
 
-          <Text numberOfLines={2} style={styles.description}>
+          <Text numberOfLines={2} style={[styles.description, { color: Theme.color }]}>
             {item.description}
 
           </Text>
 
-          <Text style={styles.price}>₹ {item.price.toFixed(0)}</Text>
+          <Text style={[styles.price, { color: Theme.color }]}>₹ {item.price.toFixed(0)}</Text>
 
           <Text>
             ⭐ {item.rating?.rate} ({item.rating?.count})
           </Text>
         </View>
-        <TouchableOpacity style={styles.heartContainer} onPress={() => { ToggleLike(item) }}>
+        <TouchableOpacity style={[styles.heartContainer,{backgroundColor:Theme.backgroundColor}]} onPress={() => { ToggleLike(item) }}>
           {
             likedItem[item.id] ? (<Ionicons name='heart' color={'red'} size={25} />
             )
@@ -178,10 +183,8 @@ const Home = () => {
     </TouchableOpacity>
   )
 
-
-
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,{backgroundColor:GreyTheme.backgroundColor}]}>
 
       <Header />
 

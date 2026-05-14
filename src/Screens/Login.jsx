@@ -11,9 +11,13 @@ import Radius from '../styles/Radius'
 import Margins from '../styles/margin'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import zIndex from '../styles/zIndex'
-const App = () => {
-  const Navigation = useNavigation()
+import { useContext } from 'react'
+import { ThemeToggleContex } from '../Context/ThemeContext'
+const Login = () => {
 
+    const { Theme } = useContext(ThemeToggleContex)
+  
+  const Navigation = useNavigation()
   const Lock = require('../Assets/lock.png')
   const Eye = require('../Assets/eye.png')
   const userImg = require('../Assets/User.png')
@@ -53,10 +57,10 @@ const App = () => {
 
   }
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor:Theme.backgroundColor}]}>
 
       <View style={styles.welcomWrapper}>
-        <Text style={styles.welcome}>Welcome
+        <Text style={[styles.welcome,{color:Theme.color}]}>Welcome
           <Text>          Back!
           </Text>
         </Text>
@@ -114,7 +118,7 @@ const App = () => {
   )
 }
 
-export default App
+export default Login
 
 const styles = StyleSheet.create({
 
